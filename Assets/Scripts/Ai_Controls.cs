@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))] // enforces dependency of NavMeshAgent
 public class Ai_Controls : MonoBehaviour
 {
     private Transform goal;// Goal is move towards player
@@ -18,7 +19,7 @@ public class Ai_Controls : MonoBehaviour
 
     public float Speed =  2.5f;//enemy speed (change the mesh agent's speed)
     public int MaxHealth = 10;//enemy max hp
-    public int CurrHeath = 10;//enemy current hp
+    public int CurrHeath ;//enemy current hp
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class Ai_Controls : MonoBehaviour
         playerTransf = player.GetComponent<Transform>();
 
         agent.speed = Speed;//set agents speed through this script
+        CurrHeath = MaxHealth;//set the current hp to MaxHp
 
     }
 
@@ -40,6 +42,7 @@ public class Ai_Controls : MonoBehaviour
 
     void DistanceCheck()
     {
+        //Check distance between player and this enemy
         distanceBetweenObjects = Vector3.Distance(transform.position, player.transform.position);
     }
 
@@ -57,7 +60,20 @@ public class Ai_Controls : MonoBehaviour
                 //for Meele enemies
                 agent.destination = playerTransf.position;// set Ai destination to player position
             }
-          
+
+        }
+    }
+
+    void attack()
+    {
+        //attack the player 
+        if (Ranged != true)
+        {
+            //meele attacks 
+        }
+        else
+        {
+            //ranged attacks
         }
     }
 
@@ -69,19 +85,6 @@ public class Ai_Controls : MonoBehaviour
         {
             //KABOOOM the enemy DIES
             Death();
-        }
-    }
-
-    void attack()
-    {
-        //attack the player 
-        if (Ranged != true)
-        {
-           //meele attacks 
-        }
-        else
-        {
-            //ranged attacks
         }
     }
 
