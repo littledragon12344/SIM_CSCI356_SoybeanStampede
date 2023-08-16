@@ -7,7 +7,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))] // enforces dependency of NavMeshAgent
 public class Ai_Controls : MonoBehaviour
 {
-    private Transform goal;// Goal is move towards player
+    private Transform goal;// Goal is Move towards player
     private NavMeshAgent agent;//Ai agent
     private GameObject player;//player
     private Transform playerTransf;//player local
@@ -15,7 +15,7 @@ public class Ai_Controls : MonoBehaviour
 
     //Enemies settings
     public bool Ranged;// tick to set enemy to ranged type
-    public float AttackRange = 5f;//The Range enemy attack distance/wont be use if ranged is false
+    public float AttackRange = 5f;//The Range enemy Attack distance/wont be use if ranged is false
 
     public float Speed =  2.5f;//enemy speed (change the mesh agent's speed)
     public int MaxHealth = 10;//enemy max hp
@@ -36,8 +36,7 @@ public class Ai_Controls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DistanceCheck();//check distance
-        move();// move to player
+        Move();// Move to player
     }
 
     void DistanceCheck()
@@ -46,34 +45,43 @@ public class Ai_Controls : MonoBehaviour
         distanceBetweenObjects = Vector3.Distance(transform.position, player.transform.position);
     }
 
-    void move()
+    void Move()
     {
+        DistanceCheck();//check distance
+
         if (playerTransf != null) // check if the player object has not been destroyed
         {
             if (distanceBetweenObjects <= AttackRange && Ranged == true)
             {
-                //FOR Ranged attacker              
+                //FOR Ranged Attacker              
                 agent.destination = transform.position;//set destination to where its standing
+                //Attack();
             }
             else
             {
                 //for Meele enemies
                 agent.destination = playerTransf.position;// set Ai destination to player position
+                //Attack();
             }
 
         }
     }
 
-    void attack()
+    void Attack()
     {
-        //attack the player 
+        //Attack the player 
         if (Ranged != true)
         {
-            //meele attacks 
+            //meele Attacks 
         }
         else
         {
-            //ranged attacks
+            //ranged Attacks
+            Vector3 direction = playerTransf.position - this.transform.position;
+            this.transform.rotation = Quaternion.LookRotation(direction);//looktowards player
+
+            //shoot something
+
         }
     }
 
