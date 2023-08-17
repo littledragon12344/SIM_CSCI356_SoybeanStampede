@@ -13,6 +13,10 @@ public class PlayerInteract : MonoBehaviour
     private Camera cam;
     [SerializeField]
     private GameObject crosshair;
+    [SerializeField]
+    private GameObject gunHolder;
+
+    IGun currentGun = null;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +29,12 @@ public class PlayerInteract : MonoBehaviour
         {
             Debug.LogError("[" + GetType() + "] : " + "Missing croshair's reference");
         }
+        if (gunHolder == null)
+        {
+            Debug.LogError("[" + GetType() + "] : " + "Missing gunHolder's reference");
+        }
+
+        EquipGun();
     }
 
     private void OnDrawGizmos()
@@ -59,9 +69,29 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        // shooting code
+        if (Input.GetMouseButton(0))
         {
-            // shooting code
+            if (currentGun != null)
+            {
+                currentGun.Fire();
+            }
         }
+
+        // reload code
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (currentGun != null)
+            {
+                currentGun.Reload();
+            }
+        }
+    }
+
+    public void EquipGun()
+    {
+        if (gunHolder == null) return;
+
+        currentGun = gunHolder.GetComponentInChildren<IGun>();
     }
 }
