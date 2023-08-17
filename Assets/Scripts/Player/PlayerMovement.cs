@@ -31,7 +31,8 @@ public class PlayerMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        Vector3 moveDir = transform.forward * verticalInput + transform.right * horizontalInput;
+        //Vector3 moveDir = transform.forward * verticalInput + transform.right * horizontalInput;
+        Vector3 moveDir = new Vector3(horizontalInput, 0.0f, verticalInput);
 
         // player's jump movement
         Vector3 jumpForce = Vector3.zero;
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = speed * 1.5f;
         }
         // set speed back to normal when player stop moving
-        if(horizontalInput == 0 && verticalInput == 0)
+        if (horizontalInput == 0 && verticalInput == 0)
         {
             moveSpeed = speed;
         }
