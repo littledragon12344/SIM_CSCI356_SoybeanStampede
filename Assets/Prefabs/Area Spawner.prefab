@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2467180389374527100}
   - component: {fileID: 6452988004715897881}
+  - component: {fileID: -194697937863224808}
   m_Layer: 0
   m_Name: Area Spawner
   m_TagString: Untagged
@@ -53,3 +54,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-194697937863224808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723828165021986468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de2052a69b4d22046a0b570ad02aee72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyPrefeb:
+  - {fileID: 8966721747668409949, guid: eb28c8ddb5b17c84da8f01ab0e334280, type: 3}
+  - {fileID: 7590105017901785761, guid: 322f131ca7b65ce4bbd54297288a401a, type: 3}
+  EnemyCountLimit: 0500000005000000
+  EnemyCountSpawned: 0000000000000000
+  SpawnBetweenTimer: 050000000a000000
+  InternalTimer:
+  - 0
+  Timer: 0

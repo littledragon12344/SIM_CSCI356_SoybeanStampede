@@ -31,6 +31,16 @@ public class Projectile : MonoBehaviour
         if (collision.transform.tag == "Enemy")
         {
             // apply damage
+            
+            // get the GameObject that was hit
+            GameObject hitObject = collision.transform.gameObject;
+
+            // get Shootable component
+            Ai_Controls target = hitObject.GetComponent<Ai_Controls>();
+            // if the object has a Shootable component
+         
+            target.SetHealth(1);// Deal dmg 
+            
         }
     }
 }
