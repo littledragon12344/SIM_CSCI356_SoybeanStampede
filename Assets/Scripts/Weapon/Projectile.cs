@@ -29,18 +29,29 @@ public class Projectile : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Enemy")
-        {
-            // apply damage
-            
+        {       
             // get the GameObject that was hit
             GameObject hitObject = collision.transform.gameObject;
 
             // get Shootable component
             Ai_Controls target = hitObject.GetComponent<Ai_Controls>();
             // if the object has a Shootable component
-         
-            target.SetHealth(1);// Deal dmg 
-            
+
+            //deal the damage
+            target.SetHealth(damage);
+
+        }
+        else if (collision.transform.tag == "Player")
+        {
+            // get the GameObject that was hit
+            GameObject hitObject = collision.transform.gameObject;
+
+            // get Shootable component
+            PlayerInteract target = hitObject.GetComponent<PlayerInteract>();
+            // if the object has a Shootable component
+
+            //deal the damage
+            target.SetHealth(damage);
         }
     }
 }

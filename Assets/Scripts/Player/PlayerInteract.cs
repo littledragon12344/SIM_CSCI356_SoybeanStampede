@@ -16,11 +16,17 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private GameObject gunHolder;
 
+    //Hp system
+    public int MaxHealth = 50;//enemy max hp
+    public int CurrHeath;//enemy current hp
+
     IGun currentGun = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        CurrHeath = MaxHealth;//set the current hp to MaxHp
+
         if (cam == null)
         {
             Debug.LogError("[" + GetType() + "] : " + "Missing camera's reference");
@@ -93,5 +99,35 @@ public class PlayerInteract : MonoBehaviour
         if (gunHolder == null) return;
 
         currentGun = gunHolder.GetComponentInChildren<IGun>();
+    }
+
+    public void SetHealth(int damage)
+    {
+        CurrHeath -= damage;//Take dmg 
+
+        if (CurrHeath == 0)
+        {
+            //animator.SetTrigger("Death");
+            Death();
+        }
+        else
+        {
+            //take dmg animation (if have)
+            //animator.SetTrigger("Damage");
+        }
+    }
+    public void Heal(int Heal)
+    {
+        if (CurrHeath == MaxHealth) return;//Does nth if Hp is full
+
+        CurrHeath += Heal;//Heal
+    }
+
+
+    void Death()
+    {
+        //Death Screen HERE
+        //End of game
+        //Destroy(this.gameObject);
     }
 }
