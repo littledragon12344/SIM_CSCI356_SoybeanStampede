@@ -35,6 +35,7 @@ public class PlayerProjectile : MonoBehaviour
 
             // get Shootable component
             Ai_Controls target = hitObject.GetComponent<Ai_Controls>();
+
             // if the object has a Shootable component
 
             //deal the damage

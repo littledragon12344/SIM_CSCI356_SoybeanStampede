@@ -16,11 +16,16 @@ public class Spawner : MonoBehaviour
     public float Timer = 0;
     public bool SpawnerState;
 
+    //waves settings
+    public bool Waves;
+    public int  WaveCount;
+    //total enemies in stage
+    //randomize waves settings
+
     // Start is called before the first frame update
     void Start()
     {
         InternalTimer = new float[EnemyPrefeb.Length];//make new incase nvr add
-
     }
 
     public void StartSpawn()
@@ -34,8 +39,7 @@ public class Spawner : MonoBehaviour
         if (SpawnerState == true)
         {
             Timer += Time.deltaTime;
-
-
+       
             for (int i = 0; i < EnemyPrefeb.Length; i++) //repeat for each enemy 
             {
                 InternalTimer[i] += Time.deltaTime;
@@ -44,19 +48,35 @@ public class Spawner : MonoBehaviour
                     Spawn(i);//spawn enemy after the timer 
                     InternalTimer[i] = 0;//reset internal timer to 0 for each enemy
                 }
-            }
+            }    
         }
-        }
+    }
 
 
 
-        void Spawn(int i)//int to determine which enemy to spawn
-        {
-        if ( EnemyCountSpawned[i] < EnemyCountLimit[i])//check amt of enemy spawn is less then the limit
+    void Spawn(int i)//int to determine which enemy to spawn
+    {
+        if (EnemyCountSpawned[i] < EnemyCountLimit[i])//check amt of enemy spawn is less then the limit
         {
             Instantiate(EnemyPrefeb[i], transform.position, Quaternion.identity);
-            EnemyCountSpawned[i]++;//+1 to spawned counter
-                  
+            EnemyCountSpawned[i]++;//+1 to spawned counter                 
+        }
+        else
+        {
+            //enemy spawn count maxxed + waves is enabled 
+            if (Waves == true)
+            {
+                SpawnWaves();
+            }
+        }
+
+    }
+    void SpawnWaves()
+    {
+        for (int i = 0; i < EnemyPrefeb.Length; i++) //repeat for each enemy 
+        {
+            EnemyCountLimit[i] = UnityEngine.Random.Range(6, 10);// randomize 6-10 enemy 
+            EnemyCountSpawned[i] = 0; //reset to 0
         }
     }
 }

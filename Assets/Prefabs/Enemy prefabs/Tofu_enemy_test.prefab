@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 777943191560428381}
   - component: {fileID: 9067392959101040249}
   m_Layer: 0
-  m_Name: Tofu_enemy
+  m_Name: Tofu_enemy_test
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

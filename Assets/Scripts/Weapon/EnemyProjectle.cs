@@ -40,5 +40,18 @@ public class EnemyProjectle : MonoBehaviour
             //deal the damage
             target.SetHealth(damage);
         }
+
+        if (collision.transform.tag == "Enemy")
+        {
+            //make enemy projectile trigger
+        }
     }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.tag == "Enemy")
+        {
+
+        }
+    }
+
 }
