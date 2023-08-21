@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class EnemyProjectle : MonoBehaviour
 {
     [SerializeField]
     private float lifeTime = 3f;
@@ -28,20 +28,7 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Enemy")
-        {       
-            // get the GameObject that was hit
-            GameObject hitObject = collision.transform.gameObject;
-
-            // get Shootable component
-            Ai_Controls target = hitObject.GetComponent<Ai_Controls>();
-            // if the object has a Shootable component
-
-            //deal the damage
-            target.SetHealth(damage);
-
-        }
-        else if (collision.transform.tag == "Player")
+        if (collision.transform.tag == "Player")
         {
             // get the GameObject that was hit
             GameObject hitObject = collision.transform.gameObject;

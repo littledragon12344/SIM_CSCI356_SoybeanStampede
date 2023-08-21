@@ -123,7 +123,7 @@ public class Ai_Controls : MonoBehaviour
                 rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
             }
             // set projectile's damage
-            Projectile projectile = bullet.GetComponent<Projectile>();
+            EnemyProjectle projectile = bullet.GetComponent<EnemyProjectle>();
             if (projectile != null)
             {
                 projectile.damage = dmg;
