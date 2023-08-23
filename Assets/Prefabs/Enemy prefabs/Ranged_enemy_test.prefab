@@ -135,7 +135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8966721747668409949}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.89, y: 1.08, z: 7.49}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -258,7 +258,12 @@ MonoBehaviour:
   AttackRange: 5
   dmg: 1
   Ranged: 1
-  projectilePrefab: {fileID: 3411316760600446756, guid: f7eb5b9e75461dd4db673835cf9c0ae4, type: 3}
+  projectilePrefab: {fileID: 4505513552797135843, guid: 592bbe22bfd9c7740a4b78bd0797b9d8, type: 3}
+  animator: {fileID: 0}
+  AttackSound: {fileID: 0}
+  DamagedSound: {fileID: 0}
+  DeathSound: {fileID: 0}
+  WalkSound: {fileID: 0}
 --- !u!54 &3848410353955252394
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class TriggerSpawner : MonoBehaviour  
 {
     private GameObject player;
-    public Spawner SpawntriggerLink;//link spawn trigger
+    public Spawner[] SpawntriggerLink =  new Spawner[1];//link spawn trigger
     public bool checkTrigg;
 
     // Start is called before the first frame update
@@ -18,11 +18,14 @@ public class TriggerSpawner : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
          if (other.gameObject.tag == "Player")
-        {
-        //sets the spawner to active
-        SpawntriggerLink.StartSpawn();
-        checkTrigg = true;
-        }
+         {
 
+         foreach (Spawner Spawn in SpawntriggerLink)
+         {
+                //sets the spawner to active
+                Spawn.StartSpawn();
+                checkTrigg = true;        
+         }
+         }
     }
 }

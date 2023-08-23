@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.UI.Image;
 
 
 [RequireComponent(typeof(NavMeshAgent))] // enforces dependency of NavMeshAgent
 public class Ai_Controls : MonoBehaviour
 {
-    private Transform goal;// Goal is Move towards player
+    //stuff
     private NavMeshAgent agent;//Ai agent
     private GameObject player;//player
     private Transform playerTransf;//player local
@@ -21,7 +24,7 @@ public class Ai_Controls : MonoBehaviour
     public int CurrHeath;//enemy current hp
     private float fireCD = 0f;
     public float Attackinterval = 3.0f;
-    public float AttackRange = 5f;//The Range enemy Attack distance
+    public int AttackRange = 5;//The Range enemy Attack distance
     public int dmg = 1;
     private bool IsAttacking;
 
@@ -32,26 +35,26 @@ public class Ai_Controls : MonoBehaviour
 
     //Enemy Animator/sound settings
     //public Animator animator;
-    public AudioSource SoundSource;
-    public AudioClip AttackSound;
-    public AudioClip DamagedSound;
-    public AudioClip DeathSound;
-    public AudioClip WalkSound;
+    private AudioSource SoundSource;    //only used as source
+    public AudioClip AttackSound;       //atk sound
+    public AudioClip DamagedSound;      //when enemy takes dmg
+    public AudioClip DeathSound;        //when it dies sound
+    public AudioClip WalkSound;         //walk sound
 
-    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         SoundSource=GetComponent<AudioSource>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerTransf = player.GetComponent<Transform>();
-        //rb = GetComponent<Rigidbody>();
-        //rb.isKinematic = true;
-        agent.speed = Speed;//set agents speed through this script
-        CurrHeath = MaxHealth;//set the current hp to MaxHp
-        SetRigidBody(true);
+        player = GameObject.FindGameObjectWithTag("Player");//player
+        playerTransf = player.GetComponent<Transform>();    //player loca
+        //animator = GetComponent<Animator>();
+        //animator = GetComponentInParent<Animator>();
+
+        agent.speed = Speed;    //set agents speed through this script
+        CurrHeath = MaxHealth;  //set the current hp to MaxHp
+        SetRigidBody(true);     //set the enemy to not move
     }
 
     // Update is called once per frame
@@ -60,9 +63,8 @@ public class Ai_Controls : MonoBehaviour
         Move();// Move to player   
     }
 
-    void DistanceCheck()
-    {
-        //Check distance between player and this enemy
+    void DistanceCheck()//Check distance between player and this enemy
+    {  
         distanceBetweenObjects = Vector3.Distance(transform.position, player.transform.position);
     }
 
@@ -72,54 +74,67 @@ public class Ai_Controls : MonoBehaviour
         DistanceCheck();//check distance
         if (agent.enabled == false) return;// cant do anything if dead
 
-        if (playerTransf != null) // check if the player object has not been destroyed
+        if (playerTransf == null) return;// check if the player object has not been destroyed      
+
+        RaycastHit hit;
+        Physics.Raycast(transform.position,transform.forward,out hit);
+
+        if (distanceBetweenObjects <= AttackRange && Ranged == true && hit.transform.tag==("Player"))
+        {                
+            //FOR Ranged Attacker
+            //SoundSource.PlayOneShot(AttackSound);
+            //animator.SetTrigger("RangedAttack");
+            Attack();
+         }
+        else if (distanceBetweenObjects <= AttackRange && Ranged != true)
         {
-            if (distanceBetweenObjects <= AttackRange && Ranged == true)
-            {
-                //FOR Ranged Attacker              
-                agent.destination = transform.position;//set destination to where its standing     
-                //SoundSource.PlayOneShot(AttackSound);
-                //animator.SetTrigger("RangedAttack");
-                Attack();
-            }
-            else if (distanceBetweenObjects <= AttackRange)
-            {
-                //for Meele enemies  
-                //SoundSource.PlayOneShot(AttackSound);
-                //animator.SetTrigger("Attack");
-                Attack();
+           //for Meele enemies  
+           //SoundSource.PlayOneShot(AttackSound);
 
-            }
-            else//move
-            {
-                if (IsAttacking==true) return;// Doesnt move if its attacking
+           // animator.SetTrigger("Attack");
+           Attack();
 
-                agent.destination = playerTransf.position;// set Ai destination to player position
-                //WalkSound.Play();
-                //SoundSource.PlayOneShot(WalkSound);           
+        }
+        else//move
+        {
+            if (IsAttacking==true) return;// Doesnt move if its attacking
+
+            agent.destination = playerTransf.position;// set Ai destination to player position
+           // animator.SetTrigger("Walking");
+            //WalkSound.Play();
+            //SoundSource.PlayOneShot(WalkSound);           
+
         }
     }
- }
 
-
+ 
     void Attack()
     {
         //Attack the player 
-        if (Ranged != true)
+        if (Ranged != true) //meele Attacks 
         {
             if (fireCD < Attackinterval) return;// wont attack if attack in cd
             IsAttacking = true;// enemy is attacking
-
             //animator.SetTrigger("Attack");
 
-            //meele Attacks 
+            //get the first ChildGame obj
+           // GameObject AttackPart = this.transform.GetChild(0).gameObject;
+
+            //get child obj with Name
+           // GameObject child1 = this.transform.Find("child1").gameObject;
+
+            //After that move the obj to look like it moveing 
+            //or move the obj
+            
             //Not sure how to implement this
 
             //dmg
-            IsAttacking = false;
+            IsAttacking = false;// end of attack animation
         }
         else
         {
+            agent.destination = transform.position;//set destination to where its standing    
+
             fireCD += Time.deltaTime;
 
             if (fireCD < Attackinterval) return;// wont attack if attack in cd
@@ -141,7 +156,7 @@ public class Ai_Controls : MonoBehaviour
                 rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
             }
             // set projectile's damage
-            EnemyProjectle projectile = bullet.GetComponent<EnemyProjectle>();
+            Projectile projectile = bullet.GetComponent<Projectile>();
             if (projectile != null)
             {
                 projectile.damage = dmg;
@@ -157,29 +172,25 @@ public class Ai_Controls : MonoBehaviour
 
         if (CurrHeath == 0)
         {
-           
-            //KABOOOM the enemy DIES        
-            //Invoke("Death", 10.0f);//delay it for 10f
+            //KABOOOM the enemy DIES   
+            //animator.SetTrigger("Death");
+            //SoundSource.PlayOneShot(DeathSound);
             Death();
-            //Drops();
+            //Drops();  //if have
         }
         else
         {
-            //take dmg animation (if have)
-            //animator.SetTrigger("Damage");
-            //SoundSource.PlayOneShot(Damaged);
+            //animator.SetTrigger("Damage");    //if have
+            //SoundSource.PlayOneShot(Damaged); // when it takes damage
         }
     }
 
     void Death()
-    {
-        //animator.SetTrigger("Death");
-        //SoundSource.PlayOneShot(DeathSound);
-        //animator.enabled = false;
-        SetRigidBody(false);//Make enemy kinamatic 
-        agent.enabled = false;//stops the ai system
-        //Total kills++
-        //Drops();
+    {  
+        //animator.enabled = false; //disable
+        SetRigidBody(false);        //Make enemy kinamatic 
+        agent.enabled = false;      //stops the ai system
+        //Total kills++ (need impliment score system if adding)                  
         Destroy(this.gameObject,5.0f);//destroy the current enemy 
     }
 
@@ -191,7 +202,8 @@ public class Ai_Controls : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (IsAttacking == true)//enable Damage only when attacking
+        //enable Damage only when attacking and if they are melee
+        if (IsAttacking == true && Ranged == false)
         {
             PlayerInteract Hit = player.GetComponent<PlayerInteract>();
             Hit.SetHealth(dmg);

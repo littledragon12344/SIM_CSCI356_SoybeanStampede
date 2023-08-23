@@ -64,7 +64,7 @@ public class Pistol : MonoBehaviour, IGun
             rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
         }
         // set projectile's damage
-        PlayerProjectile projectile = bullet.GetComponent<PlayerProjectile>();
+        Projectile projectile = bullet.GetComponent<Projectile>();
         if (projectile != null)
         {
             projectile.damage = damage;
