@@ -19,6 +19,8 @@ public class PlayerInteract : MonoBehaviour
     private List<IGun> guns = new List<IGun>();
     private int currGunIndex = 0;
 
+    Dictionary<IGun, GameObject> gunObject = new Dictionary<IGun, GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +37,25 @@ public class PlayerInteract : MonoBehaviour
             Debug.LogError("[" + GetType() + "] : " + "Missing gunHolder's reference");
         }
 
-        EquipGun();
+        if (gunHolder != null)
+        {
+            // get all children gameobjects of gunHolder
+            foreach (Transform child in gunHolder.GetComponentInChildren<Transform>())
+            {
+                // check if the gameobject has IGun component
+                IGun temp = child.GetComponent<IGun>();
+                if (temp != null)
+                {
+                    // create a key value pair for gunDictionary
+                    gunObject[temp] = child.gameObject;
+                    // add the gun to the list
+                    guns.Add(temp);
+                }
+                child.GetComponent<Renderer>().enabled = false;
+                child.GetComponent<Collider>().enabled = false;
+            }
+            EquipGun(0);
+        }
     }
 
     private void OnDrawGizmos()
@@ -63,9 +83,19 @@ public class PlayerInteract : MonoBehaviour
                     Vector3 targetDirection = hit.point - transform.position;
                     // freeze the x and z rotations
                     targetDirection.y = 0;
-                    // interpolate the rotation
+                    // interpolate the rotation of the player
                     Quaternion lookDirection = Quaternion.LookRotation(targetDirection);
                     transform.rotation = Quaternion.Lerp(transform.rotation, lookDirection, rotationSpeed * Time.deltaTime);
+
+                    if (gunHolder != null)
+                    {
+                        // get the crosshair direction relative to the player
+                        targetDirection = hit.point - gunHolder.transform.position;
+                        targetDirection.y += 0.75f;
+                        // interpolate the rotation of the gun
+                        lookDirection = Quaternion.LookRotation(targetDirection);
+                        gunHolder.transform.rotation = Quaternion.Lerp(gunHolder.transform.rotation, lookDirection, rotationSpeed * Time.deltaTime);
+                    }
                 }
             }
         }
@@ -87,19 +117,56 @@ public class PlayerInteract : MonoBehaviour
                 guns[currGunIndex].Reload();
             }
         }
+
+        // use middle mouse to change weapon
+        MouseScroll();
     }
 
-    public void EquipGun()
+    private void MouseScroll()
     {
-        if (gunHolder == null) return;
+        float scrollInput = Input.mouseScrollDelta.y;
+        int weaponIndex = currGunIndex;
 
-        //currentGun = gunHolder.GetComponentInChildren<IGun>();
+        if (scrollInput < 0)
+        {
+            weaponIndex = Mathf.Clamp(weaponIndex + 1, 0, guns.Count - 1);
+        }
+        if (scrollInput > 0)
+        {
+            weaponIndex = Mathf.Clamp(weaponIndex - 1, 0, guns.Count - 1);
+        }
+
+        if (weaponIndex != currGunIndex)
+        {
+            EquipGun(weaponIndex);
+        }
     }
 
-    public void ObtainGun(IGun gun)
+    private void EquipGun(int index)
     {
-        if (gun == null) return;
+        if (index < 0 || index >= guns.Count) return;
 
-        guns.Add(gun);
+        currGunIndex = index;
+
+        foreach (KeyValuePair<IGun, GameObject> pair in gunObject)
+        {
+            if (pair.Key == guns[currGunIndex])
+            {
+                pair.Value.GetComponent<Renderer>().enabled = true;
+                pair.Value.GetComponent<Collider>().enabled = true;
+            }
+            else
+            {
+                pair.Value.GetComponent<Renderer>().enabled = false;
+                pair.Value.GetComponent<Collider>().enabled = false;
+            }
+        }
     }
+
+    //public void ObtainGun(IGun gun)
+    //{
+    //    if (gun == null) return;
+
+    //    guns.Add(gun);
+    //}
 }

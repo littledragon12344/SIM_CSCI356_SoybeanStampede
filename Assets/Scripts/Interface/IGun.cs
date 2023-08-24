@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IGun
 {
+    string name { get; }
     int damage { get; }
     int magazine { get; }
     int capacity { get; }

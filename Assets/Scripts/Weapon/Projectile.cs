@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     private float lifeTime = 3f;
 
     public int damage { private get; set; }
+    public string isShotBy { private get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Enemy")
+        if (collision.transform.tag == "Enemy" && isShotBy == "Player")
         {
             // get the GameObject that was hit
             GameObject hitObject = collision.transform.gameObject;
@@ -42,7 +43,7 @@ public class Projectile : MonoBehaviour
             }
 
         }
-        else if (collision.transform.tag == "Player")
+        else if (collision.transform.tag == "Player" && isShotBy == "Enemy")
         {
             // get the GameObject that was hit
             GameObject hitObject = collision.transform.gameObject;

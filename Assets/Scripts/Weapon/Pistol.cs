@@ -6,6 +6,7 @@ using UnityEngine;
 public class Pistol : MonoBehaviour, IGun
 {
     // interface members implementation
+    public new string name { get; protected set; }
     public int damage { get; protected set; }
     public int magazine { get; protected set; }
     public int capacity { get; protected set; }
@@ -14,6 +15,8 @@ public class Pistol : MonoBehaviour, IGun
 
     // serializables 
     [Header("Stats")]
+    [SerializeField]
+    private string gun_name = "Magnus Mega Blaster";
     [SerializeField]
     private int dmg = 1;
     [SerializeField]
@@ -34,6 +37,7 @@ public class Pistol : MonoBehaviour, IGun
     // Start is called before the first frame update
     void Start()
     {
+        name = gun_name;
         damage = dmg;
         magazine = mag;
         capacity = cap;
@@ -68,6 +72,7 @@ public class Pistol : MonoBehaviour, IGun
         if (projectile != null)
         {
             projectile.damage = damage;
+            projectile.isShotBy = transform.root.tag;
         }
 
         // reset cooldown and decreases ammo
