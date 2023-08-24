@@ -25,6 +25,9 @@ public class WaveControler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        if (EnemyPrefab == null) return;//Dont overide Enemy
+
         foreach (Spawner Spawn in spawners)
         {
             //Overrides ALl Spawner Linked to this to the WaveController Value
