@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Xml.Linq;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 using static Unity.VisualScripting.Member;
@@ -26,6 +29,7 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         InternalTimer = new float[EnemyPrefab.Length];//make new incase nvr add
+        EnemyCountSpawned = new int[EnemyPrefab.Length];//default open 
     }
 
     public void StartSpawn()

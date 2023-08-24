@@ -1468,6 +1468,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -194697937863224808, guid: 59c0176b5e3fc0f4e81807f24699d9aa, type: 3}
+      propertyPath: EnemyCountSpawned.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -194697937863224808, guid: 59c0176b5e3fc0f4e81807f24699d9aa, type: 3}
       propertyPath: EnemyCount_X_Wave.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
@@ -1698,6 +1702,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2995152538294357438, guid: 8329a873a8a7c3a40936d55781295924, type: 3}
+      propertyPath: EnemyPrefab.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2995152538294357438, guid: 8329a873a8a7c3a40936d55781295924, type: 3}
       propertyPath: spawners.Array.data[0]
       value: 
       objectReference: {fileID: 1224409815}
@@ -1705,6 +1713,34 @@ PrefabInstance:
       propertyPath: spawners.Array.data[1]
       value: 
       objectReference: {fileID: 244448097}
+    - target: {fileID: 2995152538294357438, guid: 8329a873a8a7c3a40936d55781295924, type: 3}
+      propertyPath: EnemyPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 8966721747668409949, guid: eb28c8ddb5b17c84da8f01ab0e334280, type: 3}
+    - target: {fileID: 2995152538294357438, guid: 8329a873a8a7c3a40936d55781295924, type: 3}
+      propertyPath: EnemyPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 7590105017901785761, guid: 322f131ca7b65ce4bbd54297288a401a, type: 3}
+    - target: {fileID: 2995152538294357438, guid: 8329a873a8a7c3a40936d55781295924, type: 3}
+      propertyPath: EnemyCountLimit.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2995152538294357438, guid: 8329a873a8a7c3a40936d55781295924, type: 3}
+      propertyPath: SpawnBetweenTimer.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2995152538294357438, guid: 8329a873a8a7c3a40936d55781295924, type: 3}
+      propertyPath: EnemyCountLimit.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2995152538294357438, guid: 8329a873a8a7c3a40936d55781295924, type: 3}
+      propertyPath: SpawnBetweenTimer.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2995152538294357438, guid: 8329a873a8a7c3a40936d55781295924, type: 3}
+      propertyPath: SpawnBetweenTimer.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4778365574966515444, guid: 8329a873a8a7c3a40936d55781295924, type: 3}
       propertyPath: m_Name
       value: Wave Controller

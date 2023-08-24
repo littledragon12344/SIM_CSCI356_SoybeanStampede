@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
+using static UnityEngine.GraphicsBuffer;
 
 public class WaveControler : MonoBehaviour
 {
@@ -12,28 +15,38 @@ public class WaveControler : MonoBehaviour
     public int CurrentWave = 1;
 
     public bool WaveOngoing;
-    public int[] FromEachSpawn; 
-  
+
+
+    //overide spawners
+    public GameObject[] EnemyPrefab;        //enemy type
+    public int[] EnemyCountLimit = { 1 }; //Spawn Limit 
+    public int[] SpawnBetweenTimer = { 10 };//timer for next spawn
+
     // Start is called before the first frame update
     void Start()
     {
-  
+        foreach (Spawner Spawn in spawners)
+        {
+            //Overrides ALl Spawner Linked to this to the WaveController Value
+            Array.Copy(this.EnemyPrefab, Spawn.EnemyPrefab,this.EnemyPrefab.Length);
+            Array.Copy(this.EnemyCountLimit, Spawn.EnemyCountLimit, this.EnemyCountLimit.Length);
+            Array.Copy(this.EnemyCountLimit, Spawn.SpawnBetweenTimer, this.SpawnBetweenTimer.Length);       
+        }
     }
-
     // Update is called once per frame
     void Update()
     {
         if (CurrentWave > PlusWaves) return; // game ends 
 
-        foreach (Spawner Spawn in spawners)
+        foreach (Spawner Spawn in spawners) // for all spawner check if the spawner is done
         {
             if (Spawn.SpawnDone() != true)  //Means that The Spawner is done Spawning
-                WaveOngoing = true; //Ongoing Wave
+                WaveOngoing = true;         //Ongoing Wave
             else 
-                WaveOngoing = false;
+                WaveOngoing = false;        //Wave is Done
         }
 
-        if (WaveOngoing == true) return; // dont go to next wave
+        if (WaveOngoing == true) return;    //IF wave is ongoing 
         SpawnWaves();
        
     }
@@ -58,7 +71,7 @@ public class WaveControler : MonoBehaviour
                 Spawn.SpawnerDoneCounter = 0;
 
                 //EnemyCount per wave multiply by the wave count (e.g wave 1 - 5 enemy, Wave 2 - 10 Enemy)
-                Spawn.EnemyCountLimit[i] = FromEachSpawn[i] * CurrentWave;
+                Spawn.EnemyCountLimit[i] = EnemyCountLimit[i] * CurrentWave;
             }
         }
     }
