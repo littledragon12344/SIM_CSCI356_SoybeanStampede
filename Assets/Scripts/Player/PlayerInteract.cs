@@ -16,17 +16,12 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private GameObject gunHolder;
 
-    //Hp system
-    public int MaxHealth = 50;//enemy max hp
-    public int CurrHeath;//enemy current hp
-
-    IGun currentGun = null;
+    private List<IGun> guns = new List<IGun>();
+    private int currGunIndex = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        CurrHeath = MaxHealth;//set the current hp to MaxHp
-
         if (cam == null)
         {
             Debug.LogError("[" + GetType() + "] : " + "Missing camera's reference");
@@ -78,18 +73,18 @@ public class PlayerInteract : MonoBehaviour
         // shooting code
         if (Input.GetMouseButton(0))
         {
-            if (currentGun != null)
+            if (currGunIndex >= 0 && currGunIndex < guns.Count)
             {
-                currentGun.Fire();
+                guns[currGunIndex].Fire();
             }
         }
 
         // reload code
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (currentGun != null)
+            if (currGunIndex >= 0 && currGunIndex < guns.Count)
             {
-                currentGun.Reload();
+                guns[currGunIndex].Reload();
             }
         }
     }
@@ -98,36 +93,13 @@ public class PlayerInteract : MonoBehaviour
     {
         if (gunHolder == null) return;
 
-        currentGun = gunHolder.GetComponentInChildren<IGun>();
+        //currentGun = gunHolder.GetComponentInChildren<IGun>();
     }
 
-    public void SetHealth(int damage)
+    public void ObtainGun(IGun gun)
     {
-        CurrHeath -= damage;//Take dmg 
+        if (gun == null) return;
 
-        if (CurrHeath == 0)
-        {
-            //animator.SetTrigger("Death");
-            Death();
-        }
-        else
-        {
-            //take dmg animation (if have)
-            //animator.SetTrigger("Damage");
-        }
-    }
-    public void Heal(int Heal)
-    {
-        if (CurrHeath == MaxHealth) return;//Does nth if Hp is full
-
-        CurrHeath += Heal;//Heal
-    }
-
-
-    void Death()
-    {
-        //Death Screen HERE
-        //End of game
-        //Destroy(this.gameObject);
+        guns.Add(gun);
     }
 }

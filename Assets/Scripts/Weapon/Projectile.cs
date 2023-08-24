@@ -33,13 +33,13 @@ public class Projectile : MonoBehaviour
             // get the GameObject that was hit
             GameObject hitObject = collision.transform.gameObject;
 
-            // get Shootable component
+            // get Ai_Controls component
             Ai_Controls target = hitObject.GetComponent<Ai_Controls>();
-
-            // if the object has a Shootable component
-
-            //deal the damage
-            target.SetHealth(damage);
+            // prevent null reference
+            if (target != null)
+            {
+                target.SetHealth(damage);
+            }
 
         }
         else if (collision.transform.tag == "Player")
@@ -47,12 +47,14 @@ public class Projectile : MonoBehaviour
             // get the GameObject that was hit
             GameObject hitObject = collision.transform.gameObject;
 
-            // get Shootable component
-            PlayerInteract target = hitObject.GetComponent<PlayerInteract>();
-            // if the object has a Shootable component
-
-            //deal the damage
-            target.SetHealth(damage);
+            // get player state controller object
+            PlayerStateController target = hitObject.GetComponent<PlayerStateController>();
+            // prevent null reference
+            if (target != null)
+            {
+                //deal the damage
+                target.Damage(damage);
+            }
         }
 
     }

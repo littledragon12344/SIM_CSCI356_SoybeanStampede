@@ -19,7 +19,7 @@ public class Ai_Controls : MonoBehaviour
     public float distanceBetweenObjects;//distance between enemy and player(for things like ranged enemies)
 
     //Enemies settings
-    public float Speed =  2.5f;//enemy speed (change the mesh agent's speed)
+    public float Speed = 2.5f;//enemy speed (change the mesh agent's speed)
     public int MaxHealth = 10;//enemy max hp
     public int CurrHeath;//enemy current hp
     private float fireCD = 0f;
@@ -46,7 +46,7 @@ public class Ai_Controls : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        SoundSource=GetComponent<AudioSource>();
+        SoundSource = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player");//player
         playerTransf = player.GetComponent<Transform>();    //player loca
         //animator = GetComponent<Animator>();
@@ -64,7 +64,7 @@ public class Ai_Controls : MonoBehaviour
     }
 
     void DistanceCheck()//Check distance between player and this enemy
-    {  
+    {
         distanceBetweenObjects = Vector3.Distance(transform.position, player.transform.position);
     }
 
@@ -77,37 +77,37 @@ public class Ai_Controls : MonoBehaviour
         if (playerTransf == null) return;// check if the player object has not been destroyed      
 
         RaycastHit hit;
-        Physics.Raycast(transform.position,transform.forward,out hit);
+        Physics.Raycast(transform.position, transform.forward, out hit);
 
-        if (distanceBetweenObjects <= AttackRange && Ranged == true && hit.transform.tag==("Player"))
-        {                
+        if (distanceBetweenObjects <= AttackRange && Ranged == true && hit.transform.tag == ("Player"))
+        {
             //FOR Ranged Attacker
             //SoundSource.PlayOneShot(AttackSound);
             //animator.SetTrigger("RangedAttack");
             Attack();
-         }
+        }
         else if (distanceBetweenObjects <= AttackRange && Ranged != true)
         {
-           //for Meele enemies  
-           //SoundSource.PlayOneShot(AttackSound);
+            //for Meele enemies  
+            //SoundSource.PlayOneShot(AttackSound);
 
-           // animator.SetTrigger("Attack");
-           Attack();
+            // animator.SetTrigger("Attack");
+            Attack();
 
         }
         else//move
         {
-            if (IsAttacking==true) return;// Doesnt move if its attacking
+            if (IsAttacking == true) return;// Doesnt move if its attacking
 
             agent.destination = playerTransf.position;// set Ai destination to player position
-           // animator.SetTrigger("Walking");
-            //WalkSound.Play();
-            //SoundSource.PlayOneShot(WalkSound);           
+                                                      // animator.SetTrigger("Walking");
+                                                      //WalkSound.Play();
+                                                      //SoundSource.PlayOneShot(WalkSound);           
 
         }
     }
 
- 
+
     void Attack()
     {
         //Attack the player 
@@ -115,17 +115,17 @@ public class Ai_Controls : MonoBehaviour
         {
             if (fireCD < Attackinterval) return;// wont attack if attack in cd
             IsAttacking = true;// enemy is attacking
-            //animator.SetTrigger("Attack");
+                               //animator.SetTrigger("Attack");
 
             //get the first ChildGame obj
-           // GameObject AttackPart = this.transform.GetChild(0).gameObject;
+            // GameObject AttackPart = this.transform.GetChild(0).gameObject;
 
             //get child obj with Name
-           // GameObject child1 = this.transform.Find("child1").gameObject;
+            // GameObject child1 = this.transform.Find("child1").gameObject;
 
             //After that move the obj to look like it moveing 
             //or move the obj
-            
+
             //Not sure how to implement this
 
             //dmg
@@ -186,12 +186,12 @@ public class Ai_Controls : MonoBehaviour
     }
 
     void Death()
-    {  
+    {
         //animator.enabled = false; //disable
         SetRigidBody(false);        //Make enemy kinamatic 
         agent.enabled = false;      //stops the ai system
         //Total kills++ (need impliment score system if adding)                  
-        Destroy(this.gameObject,5.0f);//destroy the current enemy 
+        Destroy(this.gameObject, 5.0f);//destroy the current enemy 
     }
 
     void SetRigidBody(bool State)
@@ -205,8 +205,12 @@ public class Ai_Controls : MonoBehaviour
         //enable Damage only when attacking and if they are melee
         if (IsAttacking == true && Ranged == false)
         {
-            PlayerInteract Hit = player.GetComponent<PlayerInteract>();
-            Hit.SetHealth(dmg);
+            PlayerStateController Hit = player.GetComponent<PlayerStateController>();
+
+            if (Hit != null)
+            {
+                Hit.Damage(dmg);
+            }
         }
     }
 
