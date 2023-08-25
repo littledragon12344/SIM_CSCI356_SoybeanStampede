@@ -10,17 +10,15 @@ public class WaveControler : MonoBehaviour
     public Spawner[] spawners; //add/link all spawners
 
     //waves settings
-   
     public int PlusWaves = 1;// Amount of Waves + Wave 1
     public int CurrentWave = 1;
-
     public bool WaveOngoing;
 
 
     //overide spawners
     public GameObject[] EnemyPrefab;        //enemy type
     public int[] EnemyCountLimit = { 1 }; //Spawn Limit 
-    public int[] SpawnBetweenTimer = { 10 };//timer for next spawn
+    public int[] SpawnBetweenTimer ;//timer for next spawn
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +31,7 @@ public class WaveControler : MonoBehaviour
             //Overrides ALl Spawner Linked to this to the WaveController Value
             Array.Copy(this.EnemyPrefab, Spawn.EnemyPrefab,this.EnemyPrefab.Length);
             Array.Copy(this.EnemyCountLimit, Spawn.EnemyCountLimit, this.EnemyCountLimit.Length);
-            Array.Copy(this.EnemyCountLimit, Spawn.SpawnBetweenTimer, this.SpawnBetweenTimer.Length);       
+            Array.Copy(this.SpawnBetweenTimer, Spawn.SpawnBetweenTimer, this.SpawnBetweenTimer.Length);       
         }
     }
     // Update is called once per frame

@@ -66,12 +66,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2052a69b4d22046a0b570ad02aee72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefeb:
-  - {fileID: 8966721747668409949, guid: eb28c8ddb5b17c84da8f01ab0e334280, type: 3}
-  - {fileID: 7590105017901785761, guid: 322f131ca7b65ce4bbd54297288a401a, type: 3}
+  EnemyPrefab: []
   EnemyCountLimit: 0500000005000000
   EnemyCountSpawned: 0000000000000000
   SpawnBetweenTimer: 050000000a000000
   InternalTimer:
   - 0
   Timer: 0
+  SpawnerState: 0
+  SpawnerDoneCounter: 0

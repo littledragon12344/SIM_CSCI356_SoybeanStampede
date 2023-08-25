@@ -29,22 +29,7 @@ public class RocketProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Enemy" && isShotBy == "Player")
-        {
-            // get the GameObject that was hit
-            GameObject hitObject = collision.transform.gameObject;
-
-            // get Ai_Controls component
-            Ai_Controls target = hitObject.GetComponent<Ai_Controls>();
-            // prevent null reference
-            if (target != null)
-            {
-                target.SetHealth(damage);
-            }
-
-            Destroy(gameObject);
-        }
-        else if (collision.transform.tag == "Player" && isShotBy == "Enemy")
+        if (collision.transform.tag == "Player" && isShotBy == "Enemy")
         {
             // get the GameObject that was hit
             GameObject hitObject = collision.transform.gameObject;
@@ -60,7 +45,6 @@ public class RocketProjectile : MonoBehaviour
 
             Destroy(gameObject);
         }
-
     }
 
     private void OnDestroy()

@@ -259,7 +259,6 @@ MonoBehaviour:
   dmg: 1
   Ranged: 1
   projectilePrefab: {fileID: 4505513552797135843, guid: 592bbe22bfd9c7740a4b78bd0797b9d8, type: 3}
-  animator: {fileID: 0}
   AttackSound: {fileID: 0}
   DamagedSound: {fileID: 0}
   DeathSound: {fileID: 0}
@@ -272,7 +271,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8966721747668409949}
   serializedVersion: 4
-  m_Mass: 50
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

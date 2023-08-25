@@ -24,9 +24,10 @@ public class Ai_Controls : MonoBehaviour
     public int CurrHeath;//enemy current hp
     private float fireCD = 0f;
     public float Attackinterval = 3.0f;
-    public int AttackRange = 5;//The Range enemy Attack distance
+    public float AttackRange = 5;//The Range enemy Attack distance
     public int dmg = 1;
     private bool IsAttacking;
+    private RaycastHit hit;
 
     //ranged settings
     public bool Ranged;// tick to set enemy to ranged type
@@ -52,7 +53,8 @@ public class Ai_Controls : MonoBehaviour
         //animator = GetComponent<Animator>();
         //animator = GetComponentInParent<Animator>();
 
-        agent.speed = Speed;    //set agents speed through this script
+        agent.stoppingDistance = AttackRange;    //set agents speed through this script
+        agent.speed = Speed;
         CurrHeath = MaxHealth;  //set the current hp to MaxHp
         SetRigidBody(true);     //set the enemy to not move
     }
@@ -71,15 +73,13 @@ public class Ai_Controls : MonoBehaviour
 
     void Move()
     {
-        DistanceCheck();//check distance
+            DistanceCheck();//check distance
         if (agent.enabled == false) return;// cant do anything if dead
 
         if (playerTransf == null) return;// check if the player object has not been destroyed      
 
-        RaycastHit hit;
-        Physics.Raycast(transform.position, transform.forward, out hit);
 
-        if (distanceBetweenObjects <= AttackRange && Ranged == true && hit.transform.tag == ("Player"))
+        if(distanceBetweenObjects < agent.stoppingDistance)
         {
             //FOR Ranged Attacker
             //SoundSource.PlayOneShot(AttackSound);
@@ -100,9 +100,9 @@ public class Ai_Controls : MonoBehaviour
             if (IsAttacking == true) return;// Doesnt move if its attacking
 
             agent.destination = playerTransf.position;// set Ai destination to player position
-                                                      // animator.SetTrigger("Walking");
-                                                      //WalkSound.Play();
-                                                      //SoundSource.PlayOneShot(WalkSound);           
+            // animator.SetTrigger("Walking");
+            //WalkSound.Play();
+             //SoundSource.PlayOneShot(WalkSound);           
 
         }
     }
@@ -133,7 +133,7 @@ public class Ai_Controls : MonoBehaviour
         }
         else
         {
-            agent.destination = transform.position;//set destination to where its standing    
+           
 
             fireCD += Time.deltaTime;
 
@@ -160,13 +160,14 @@ public class Ai_Controls : MonoBehaviour
             if (projectile != null)
             {
                 projectile.damage = dmg;
+                projectile.isShotBy = this.tag;
             }
             fireCD = 0; // reset
             IsAttacking = false;
         }
     }
 
-    public void SetHealth(int damage)
+    public void Damage(int damage)
     {
         CurrHeath -= damage;//Take dmg 
 
@@ -190,7 +191,10 @@ public class Ai_Controls : MonoBehaviour
         //animator.enabled = false; //disable
         SetRigidBody(false);        //Make enemy kinamatic 
         agent.enabled = false;      //stops the ai system
-        //Total kills++ (need impliment score system if adding)                  
+                                    
+        GameStateContoller Score = FindObjectOfType<GameStateContoller>();
+        Score.ScoreUpdate();//Total kills++
+
         Destroy(this.gameObject, 5.0f);//destroy the current enemy 
     }
 

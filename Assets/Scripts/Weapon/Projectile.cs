@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour
             // prevent null reference
             if (target != null)
             {
-                target.SetHealth(damage);
+                target.Damage(damage);
             }
 
             // get the rigidbody

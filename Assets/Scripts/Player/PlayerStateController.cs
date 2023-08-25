@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStateController : MonoBehaviour
 {
     private int MaxHealth = 50;      //player max hp
-    private int CurrHeath;  //player current hp
+    public int CurrHeath;  //player current hp
 
     // Start is called before the first frame update
     void Start()
@@ -47,5 +47,8 @@ public class PlayerStateController : MonoBehaviour
         //Death Screen HERE
         //End of game
         //Destroy(this.gameObject);
+
+        GameStateContoller Death = FindObjectOfType<GameStateContoller>();
+        Death.GameOver();//Total kills++
     }
 }

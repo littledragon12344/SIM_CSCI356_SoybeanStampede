@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2863427961517796050}
   - component: {fileID: 5928002383513420737}
   - component: {fileID: 2995152538294357438}
+  - component: {fileID: 3682919630886733278}
   m_Layer: 0
   m_Name: Wave Controller
   m_TagString: Untagged
@@ -102,4 +103,20 @@ MonoBehaviour:
   PlusWaves: 1
   CurrentWave: 1
   WaveOngoing: 0
-  FromEachSpawn: 0100000001000000
+  EnemyPrefab: []
+  EnemyCountLimit: 01000000
+  SpawnBetweenTimer: 0a000000
+--- !u!114 &3682919630886733278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778365574966515444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9917cb9557462d4cb4f8e432ccca368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timer: 0
+  Kills: 0
