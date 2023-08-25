@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class RocketProjectile : MonoBehaviour
 {
     [SerializeField]
     private float lifeTime = 3f;
@@ -42,13 +42,6 @@ public class Projectile : MonoBehaviour
                 target.SetHealth(damage);
             }
 
-            // get the rigidbody
-            Rigidbody rb = hitObject.GetComponent<Rigidbody>();
-            if(rb != null)
-            {
-                rb.AddForceAtPosition(transform.forward * 0.5f, collision.transform.position);
-            }
-
             Destroy(gameObject);
         }
         else if (collision.transform.tag == "Player" && isShotBy == "Enemy")
@@ -64,7 +57,20 @@ public class Projectile : MonoBehaviour
                 //deal the damage
                 target.Damage(damage);
             }
+
+            Destroy(gameObject);
         }
 
     }
+
+    private void OnDestroy()
+    {
+        // get the rigidbody
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.AddExplosionForce(0.5f, transform.position, 5f);
+        }
+    }
 }
+

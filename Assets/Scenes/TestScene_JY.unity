@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 885248665}
   - component: {fileID: 885248664}
   - component: {fileID: 885248663}
-  - component: {fileID: 885248662}
+  - component: {fileID: 885248666}
   m_Layer: 0
   m_Name: Stryfe Flywheel Blaster
   m_TagString: Untagged
@@ -366,25 +366,6 @@ Transform:
   m_Father: {fileID: 753486589}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &885248662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 885248660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa82a946fb3679438a02ec33c923ef2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gun_name: Magnus Mega Blaster
-  dmg: 1
-  mag: 10
-  cap: 12
-  interval: 0.5
-  projectileSpeed: 20
-  projectilePrefab: {fileID: 4505513552797135843, guid: 592bbe22bfd9c7740a4b78bd0797b9d8, type: 3}
 --- !u!65 &885248663
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -456,6 +437,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885248660}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &885248666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885248660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16e9f912602d4f44980efac2470683a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gun_name: Stryfe Flywheel Blaster
+  dmg: 1
+  mag: 10
+  cap: 30
+  interval: 0.1
+  projectileSpeed: 30
+  projectilePrefab: {fileID: 4505513552797135843, guid: 592bbe22bfd9c7740a4b78bd0797b9d8, type: 3}
 --- !u!1 &893624340
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +644,141 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1269252442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1269252447}
+  - component: {fileID: 1269252446}
+  - component: {fileID: 1269252445}
+  - component: {fileID: 1269252444}
+  - component: {fileID: 1269252443}
+  m_Layer: 0
+  m_Name: Enemy
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!54 &1269252443
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269252442}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &1269252444
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269252442}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1269252445
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269252442}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1269252446
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269252442}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1269252447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269252442}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.33, y: 0.2797833, z: 0.83}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1343906093
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,7 +885,7 @@ GameObject:
   - component: {fileID: 1616224917}
   - component: {fileID: 1616224916}
   - component: {fileID: 1616224915}
-  - component: {fileID: 1616224914}
+  - component: {fileID: 1616224918}
   m_Layer: 0
   m_Name: Nerf Fortnite RPG Blaster
   m_TagString: Untagged
@@ -773,25 +908,6 @@ Transform:
   m_Father: {fileID: 753486589}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1616224914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616224912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa82a946fb3679438a02ec33c923ef2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gun_name: Magnus Mega Blaster
-  dmg: 1
-  mag: 10
-  cap: 12
-  interval: 0.5
-  projectileSpeed: 20
-  projectilePrefab: {fileID: 4505513552797135843, guid: 592bbe22bfd9c7740a4b78bd0797b9d8, type: 3}
 --- !u!65 &1616224915
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -863,6 +979,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616224912}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1616224918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616224912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38dcbc402c6e3494981667948ece3f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gun_name: Nerf Fortnite RPG Blaster
+  dmg: 3
+  mag: 5
+  cap: 2
+  interval: 1.5
+  projectileSpeed: 40
+  projectilePrefab: {fileID: 2990448339320851347, guid: 62ae0b910d8dd224f8cf918cc7b2bb68, type: 3}
 --- !u!1 &1776344640
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,7 +1225,7 @@ MonoBehaviour:
   dmg: 1
   mag: 10
   cap: 12
-  interval: 0.5
+  interval: 0.8
   projectileSpeed: 20
   projectilePrefab: {fileID: 4505513552797135843, guid: 592bbe22bfd9c7740a4b78bd0797b9d8, type: 3}
 --- !u!1 &2012711586
