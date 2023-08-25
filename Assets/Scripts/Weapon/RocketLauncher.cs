@@ -61,6 +61,8 @@ public class RocketLauncher : MonoBehaviour, IGun
         // spawn projectile
         GameObject rocket = Instantiate(projectilePrefab);
         rocket.transform.position = transform.position + transform.forward;
+        Quaternion lookDir = Quaternion.LookRotation(transform.forward) * Quaternion.Euler(90f, 0f, 0f);
+        rocket.transform.rotation = lookDir;
         // apply force to projectile
         Rigidbody rb = rocket.GetComponent<Rigidbody>();
         if (rb != null)

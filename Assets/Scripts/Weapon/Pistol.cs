@@ -61,6 +61,8 @@ public class Pistol : MonoBehaviour, IGun
         // spawn projectile
         GameObject bullet = Instantiate(projectilePrefab);
         bullet.transform.position = transform.position + transform.forward;
+        Quaternion lookDir = Quaternion.LookRotation(transform.forward) * Quaternion.Euler(90f, 0f, 0f);
+        bullet.transform.rotation = lookDir;
         // apply force to projectile
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
