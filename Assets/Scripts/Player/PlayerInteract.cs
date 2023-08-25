@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
@@ -51,8 +52,13 @@ public class PlayerInteract : MonoBehaviour
                     // add the gun to the list
                     guns.Add(temp);
                 }
-                child.GetComponent<Renderer>().enabled = false;
-                child.GetComponent<Collider>().enabled = false;
+                //child.GetComponent<Renderer>().enabled = false;
+                //child.GetComponent<Collider>().enabled = false;
+
+                foreach (Transform part in child.GetComponentInChildren<Transform>())
+                {
+                    part.gameObject.SetActive(false);
+                }
             }
             EquipGun(0);
         }
@@ -152,13 +158,22 @@ public class PlayerInteract : MonoBehaviour
         {
             if (pair.Key == guns[currGunIndex])
             {
-                pair.Value.GetComponent<Renderer>().enabled = true;
-                pair.Value.GetComponent<Collider>().enabled = true;
+                //pair.Value.GetComponent<Renderer>().enabled = true;
+                //pair.Value.GetComponent<Collider>().enabled = true;
+
+                foreach (Transform part in pair.Value.GetComponentInChildren<Transform>())
+                {
+                    part.gameObject.SetActive(true);
+                }
             }
             else
             {
-                pair.Value.GetComponent<Renderer>().enabled = false;
-                pair.Value.GetComponent<Collider>().enabled = false;
+                //pair.Value.GetComponent<Renderer>().enabled = false;
+                //pair.Value.GetComponent<Collider>().enabled = false;
+                foreach (Transform part in pair.Value.GetComponentInChildren<Transform>())
+                {
+                    part.gameObject.SetActive(false);
+                }
             }
         }
     }
