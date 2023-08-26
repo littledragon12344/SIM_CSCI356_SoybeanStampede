@@ -6,6 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.UI.Image;
 
 
@@ -69,6 +70,9 @@ public class Ai_Controls : MonoBehaviour
     void Update()
     {
         Move();// Move to player   
+
+        
+
     }
 
     void DistanceCheck()//Check distance between player and this enemy
@@ -105,12 +109,14 @@ public class Ai_Controls : MonoBehaviour
         {
             if (IsAttacking == true) return;// Doesnt move if its attacking  
 
-            if(distanceBetweenObjects > 20) SetRigidBody(true);//Make enemy not kinamatic 
-            agent.destination = playerTransf.position;// set Ai destination to player position
+            if(distanceBetweenObjects > 20) SetRigidBody(true);//Make enemy not kinamatic if range is far far
+            agent.nextPosition = transform.position;
+            agent.SetDestination(playerTransf.position);
+           
             // animator.SetTrigger("Walking");
             //WalkSound.Play();
             //SoundSource.PlayOneShot(WalkSound);           
-          
+
         }
     }
 
@@ -126,7 +132,7 @@ public class Ai_Controls : MonoBehaviour
             IsAttacking = true;// enemy is attacking
             //animator.SetTrigger("Attack");
 
-            StartCoroutine(Wait(2.5f));// attack duration 1.5 sec      
+            StartCoroutine(MeeleTimer(2.5f));// attack duration 1.5 sec      
         }
         else
         {
@@ -182,6 +188,7 @@ public class Ai_Controls : MonoBehaviour
             //animator.SetTrigger("Damage");    //if have
             //SoundSource.PlayOneShot(Damaged); // when it takes damage
         }
+       
     }
 
     void Death()
@@ -216,14 +223,13 @@ public class Ai_Controls : MonoBehaviour
             }
         }
     }
-    private IEnumerator Wait(float waitTime)
+    private IEnumerator MeeleTimer(float waitTime)
     {
       
         yield return new WaitForSeconds(waitTime);
         IsAttacking = false;
         fireCD = 0; // reset
     }
-
 
     void Drops()
     {
