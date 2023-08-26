@@ -80,7 +80,8 @@ public class PlayerInteract : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cam != null && crosshair != null)
+        // check for null reference and check if the crosshair is active or not
+        if (cam != null && crosshair != null && crosshair.activeInHierarchy)
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -111,6 +112,11 @@ public class PlayerInteract : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (crosshair != null && !crosshair.activeInHierarchy)
+        {
+            // fps controls
         }
 
         // shooting code
@@ -202,6 +208,14 @@ public class PlayerInteract : MonoBehaviour
         if (guns[currGunIndex] != null)
         {
             guns[currGunIndex].AddAmmo(amount);
+        }
+    }
+
+    public void ToggleFPSControls(bool isFPS)
+    {
+        if(crosshair!= null)
+        {
+            crosshair.SetActive(isFPS);
         }
     }
 }
