@@ -28,8 +28,6 @@ public class GameStateContoller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TimerCheck();
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Pause = !Pause; //false become true
@@ -38,14 +36,6 @@ public class GameStateContoller : MonoBehaviour
             else
                 ResumGame(); // resume game
         }
-    }
-
-    void TimerCheck()
-    {
-        //Timer till end of game, will only count if game is on going
-        if (EndOfGame == true) return;     // only if game isnt ended
-        if (Time.timeScale == 0) return;     // Timescale = 0 is Paused
-        Timer += Time.deltaTime;
     }
 
     public void ScoreUpdate()

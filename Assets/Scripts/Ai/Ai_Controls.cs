@@ -22,11 +22,11 @@ public class Ai_Controls : MonoBehaviour
     public float Speed = 2.5f;//enemy speed (change the mesh agent's speed)
     public int MaxHealth = 10;//enemy max hp
     public int CurrHeath;//enemy current hp
-    private float fireCD = 0f;
+    public float fireCD = 0f;
     public float Attackinterval = 3.0f;
     public float AttackRange = 5;//The Range enemy Attack distance
     public int dmg = 1;
-    private bool IsAttacking;
+    public bool IsAttacking;
     private RaycastHit hit;
 
     //ranged settings
@@ -53,11 +53,17 @@ public class Ai_Controls : MonoBehaviour
         //animator = GetComponent<Animator>();
         //animator = GetComponentInParent<Animator>();
 
-        agent.stoppingDistance = AttackRange;    //set agents speed through this script
+
         agent.speed = Speed;
         CurrHeath = MaxHealth;  //set the current hp to MaxHp
-        SetRigidBody(true);     //set the enemy to not move
+        //SetRigidBody(true);     //set the enemy to not move
+
+        if (Ranged == true)
+        {
+            agent.stoppingDistance = AttackRange;    //set agents speed through this script
+        }
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -73,7 +79,7 @@ public class Ai_Controls : MonoBehaviour
 
     void Move()
     {
-            DistanceCheck();//check distance
+        DistanceCheck();//check distance
         if (agent.enabled == false) return;// cant do anything if dead
 
         if (playerTransf == null) return;// check if the player object has not been destroyed      
@@ -102,8 +108,8 @@ public class Ai_Controls : MonoBehaviour
             agent.destination = playerTransf.position;// set Ai destination to player position
             // animator.SetTrigger("Walking");
             //WalkSound.Play();
-             //SoundSource.PlayOneShot(WalkSound);           
-
+            //SoundSource.PlayOneShot(WalkSound);           
+          
         }
     }
 
@@ -113,23 +119,13 @@ public class Ai_Controls : MonoBehaviour
         //Attack the player 
         if (Ranged != true) //meele Attacks 
         {
+            fireCD += Time.deltaTime;
+
             if (fireCD < Attackinterval) return;// wont attack if attack in cd
             IsAttacking = true;// enemy is attacking
-                               //animator.SetTrigger("Attack");
+            //animator.SetTrigger("Attack");
 
-            //get the first ChildGame obj
-            // GameObject AttackPart = this.transform.GetChild(0).gameObject;
-
-            //get child obj with Name
-            // GameObject child1 = this.transform.Find("child1").gameObject;
-
-            //After that move the obj to look like it moveing 
-            //or move the obj
-
-            //Not sure how to implement this
-
-            //dmg
-            IsAttacking = false;// end of attack animation
+            StartCoroutine(Wait(2.5f));// attack duration 1.5 sec      
         }
         else
         {
@@ -204,19 +200,28 @@ public class Ai_Controls : MonoBehaviour
         Rb.isKinematic = State;
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
         //enable Damage only when attacking and if they are melee
-        if (IsAttacking == true && Ranged == false)
+        if (IsAttacking == true && Ranged != true)
         {
-            PlayerStateController Hit = player.GetComponent<PlayerStateController>();
+            GameObject hitObject = collision.transform.gameObject;
+            PlayerStateController Hit = hitObject.GetComponent<PlayerStateController>();
 
             if (Hit != null)
             {
-                Hit.Damage(dmg);
+                Hit.Damage(dmg);        
             }
         }
     }
+    private IEnumerator Wait(float waitTime)
+    {
+      
+        yield return new WaitForSeconds(waitTime);
+        IsAttacking = false;
+        fireCD = 0; // reset
+    }
+
 
     void Drops()
     {

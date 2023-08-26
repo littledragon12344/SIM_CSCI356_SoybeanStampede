@@ -25,6 +25,9 @@ public class PlayerInteract : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Collider Trigger= this.GetComponent<Collider>();
+        Trigger.isTrigger = true; //enable player's capsule or watever coilder so the enemy can Meele attack
+
         if (cam == null)
         {
             Debug.LogError("[" + GetType() + "] : " + "Missing camera's reference");

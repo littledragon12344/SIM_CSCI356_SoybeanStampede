@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4826042322344700582}
-  m_RootOrder: -1
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8096718759384103133
 MeshFilter:
@@ -141,7 +141,7 @@ Transform:
   m_Children:
   - {fileID: 7213247770316963555}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5379375602309552997
 MeshFilter:
@@ -251,10 +251,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceBetweenObjects: 0
-  Speed: 1
+  Speed: 2.5
   MaxHealth: 3
   CurrHeath: 3
-  Attackinterval: 3
+  Attackinterval: 2
   AttackRange: 5
   dmg: 1
   Ranged: 1
