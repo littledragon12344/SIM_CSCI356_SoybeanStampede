@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -25,7 +27,7 @@ public class PlayerInteract : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Collider Trigger= this.GetComponent<Collider>();
+        Collider Trigger = this.GetComponent<Collider>();
         Trigger.isTrigger = true; //enable player's capsule or watever coilder so the enemy can Meele attack
 
         if (cam == null)
@@ -46,6 +48,8 @@ public class PlayerInteract : MonoBehaviour
             // get all children gameobjects of gunHolder
             foreach (Transform child in gunHolder.GetComponentInChildren<Transform>())
             {
+                if (!child.gameObject.activeInHierarchy) continue;
+
                 // check if the gameobject has IGun component
                 IGun temp = child.GetComponent<IGun>();
                 if (temp != null)
@@ -181,10 +185,23 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
-    //public void ObtainGun(IGun gun)
-    //{
-    //    if (gun == null) return;
+    public void AddMagazine(int amount)
+    {
+        if (guns.Count <= 0) return;
 
-    //    guns.Add(gun);
-    //}
+        if (guns[currGunIndex] != null)
+        {
+            guns[currGunIndex].AddMagazine(amount);
+        }
+    }
+
+    public void AddAmmo(int amount)
+    {
+        if (guns.Count <= 0) return;
+
+        if (guns[currGunIndex] != null)
+        {
+            guns[currGunIndex].AddAmmo(amount);
+        }
+    }
 }

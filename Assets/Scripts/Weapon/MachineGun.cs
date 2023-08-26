@@ -67,7 +67,13 @@ public class MachineGun : MonoBehaviour, IGun
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
+            float spreadAngle = 5f;
+            Vector3 direction = Vector3.zero;
+            direction.x = Random.Range(-spreadAngle * 0.5f, spreadAngle * 0.5f);
+            direction.y = Random.Range(-spreadAngle * 0.5f, spreadAngle * 0.5f);
+            direction = Quaternion.Euler(direction.x, direction.y, 0) * transform.forward;
+            rb.AddForce(direction * projectileSpeed, ForceMode.Impulse);
+            //rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
         }
         // set projectile's damage
         Projectile projectile = bullet.GetComponent<Projectile>();
@@ -88,5 +94,14 @@ public class MachineGun : MonoBehaviour, IGun
 
         magazine--;
         ammo = capacity;
+    }
+    public void AddMagazine(int amount)
+    {
+        magazine += amount;
+    }
+
+    public void AddAmmo(int amount)
+    {
+        ammo += amount;
     }
 }

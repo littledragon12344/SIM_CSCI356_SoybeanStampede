@@ -89,5 +89,14 @@ public class RocketLauncher : MonoBehaviour, IGun
         magazine--;
         ammo = capacity;
     }
+    public void AddMagazine(int amount)
+    {
+        magazine += amount;
+    }
+
+    public void AddAmmo(int amount)
+    {
+        ammo += amount;
+    }
 }
 

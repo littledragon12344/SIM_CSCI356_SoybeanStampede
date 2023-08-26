@@ -13,4 +13,6 @@ public interface IGun
 
     public abstract void Fire();
     public abstract void Reload();
+    public abstract void AddMagazine(int amount);
+    public abstract void AddAmmo(int amount);
 }
