@@ -56,7 +56,7 @@ public class Ai_Controls : MonoBehaviour
 
         agent.speed = Speed;
         CurrHeath = MaxHealth;  //set the current hp to MaxHp
-        //SetRigidBody(true);     //set the enemy to not move
+        SetRigidBody(true);     //set the enemy to not move
 
         if (Ranged == true)
         {
@@ -87,6 +87,7 @@ public class Ai_Controls : MonoBehaviour
 
         if(distanceBetweenObjects < agent.stoppingDistance)
         {
+
             //FOR Ranged Attacker
             //SoundSource.PlayOneShot(AttackSound);
             //animator.SetTrigger("RangedAttack");
@@ -95,16 +96,16 @@ public class Ai_Controls : MonoBehaviour
         else if (distanceBetweenObjects <= AttackRange && Ranged != true)
         {
             //for Meele enemies  
-            //SoundSource.PlayOneShot(AttackSound);
-
+            //SoundSource.PlayOneShot(AttackSound);          
             // animator.SetTrigger("Attack");
             Attack();
-
+            
         }
         else//move
         {
-            if (IsAttacking == true) return;// Doesnt move if its attacking
+            if (IsAttacking == true) return;// Doesnt move if its attacking  
 
+            if(distanceBetweenObjects > 20) SetRigidBody(true);//Make enemy not kinamatic 
             agent.destination = playerTransf.position;// set Ai destination to player position
             // animator.SetTrigger("Walking");
             //WalkSound.Play();
@@ -165,6 +166,7 @@ public class Ai_Controls : MonoBehaviour
 
     public void Damage(int damage)
     {
+        SetRigidBody(false);        //Make enemy not kinamatic 
         CurrHeath -= damage;//Take dmg 
 
         if (CurrHeath == 0)
