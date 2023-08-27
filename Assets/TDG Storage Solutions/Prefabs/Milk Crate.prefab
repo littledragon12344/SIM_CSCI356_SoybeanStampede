@@ -3892,6 +3892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7887020803580016740}
   - component: {fileID: 1636506760898940667}
+  - component: {fileID: 6927286582316631453}
   m_Layer: 0
   m_Name: Milk Crate
   m_TagString: Untagged
@@ -4004,6 +4005,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &6927286582316631453
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7367751614493418206}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 53.882042, y: 46.63294, z: 47.412685}
+  m_Center: {x: -10.558979, y: 6.83626, z: 0.09808159}
 --- !u!1 &7427675443316908019
 GameObject:
   m_ObjectHideFlags: 0
