@@ -26,6 +26,16 @@ public class PlayerStateController : MonoBehaviour
     void Update()
     {
         // if paused disable the player's controls, enable if otherwise
+        if (Time.timeScale == 0)
+        {
+            playerControls.enabled = false;
+            playerMovement.enabled = false;
+        }
+        else
+        {
+            playerControls.enabled = true;
+            playerMovement.enabled = true;
+        }
     }
 
     public void Damage(int damage)
