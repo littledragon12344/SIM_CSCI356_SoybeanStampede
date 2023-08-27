@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -26,30 +27,37 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
+   
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Enemy" && isShotBy == "Player")
+        if (collision.transform.tag == "Enemy" )
         {
-            // get the GameObject that was hit
+            // get the GameObject that was hit     
             GameObject hitObject = collision.transform.gameObject;
-
-            // get Ai_Controls component
-            Ai_Controls target = hitObject.GetComponent<Ai_Controls>();
-            // prevent null reference
-            if (target != null)
+            if (isShotBy == "Player")
             {
-                target.Damage(damage);
-            }
+                // get Ai_Controls component
+                Ai_Controls target = hitObject.GetComponent<Ai_Controls>();
+                // prevent null reference
+                if (target != null)
+                {
+                    target.Damage(damage);
+                }
 
-            // get the rigidbody
-            Rigidbody rb = hitObject.GetComponent<Rigidbody>();
-            if(rb != null)
+                // get the rigidbody
+                Rigidbody rb = hitObject.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.AddForceAtPosition(transform.forward * 0.5f, collision.transform.position);
+                }
+                Destroy(gameObject);
+            }
+            else if (isShotBy == "Enemy")
             {
-                rb.AddForceAtPosition(transform.forward * 0.5f, collision.transform.position);
-            }
+               // i want it to make it go through oher enemies but i bobo
 
-            Destroy(gameObject);
+            }
         }
         else if (collision.transform.tag == "Player" && isShotBy == "Enemy")
         {

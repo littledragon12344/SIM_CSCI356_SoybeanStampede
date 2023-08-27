@@ -36,7 +36,7 @@ public class Ai_Controls : MonoBehaviour
     public GameObject projectilePrefab;
 
     //Enemy Animator/sound settings
-    //public Animator animator;
+    public Animator animator;
     private AudioSource SoundSource;    //only used as source
     public AudioClip AttackSound;       //atk sound
     public AudioClip DamagedSound;      //when enemy takes dmg
@@ -51,7 +51,7 @@ public class Ai_Controls : MonoBehaviour
         SoundSource = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player");//player
         playerTransf = player.GetComponent<Transform>();    //player loca
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         //animator = GetComponentInParent<Animator>();
 
 
@@ -69,10 +69,8 @@ public class Ai_Controls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();// Move to player   
-
-        
-
+       
+        Move();// Move to player        
     }
 
     void DistanceCheck()//Check distance between player and this enemy
@@ -83,6 +81,12 @@ public class Ai_Controls : MonoBehaviour
 
     void Move()
     {
+        if (CurrHeath < 1)// stop moving and stuff if dead
+        {
+            animator.enabled = false;
+            return;
+        }
+
         DistanceCheck();//check distance
         if (agent.enabled == false) return;// cant do anything if dead
 
@@ -101,7 +105,6 @@ public class Ai_Controls : MonoBehaviour
         {
             //for Meele enemies  
             //SoundSource.PlayOneShot(AttackSound);          
-            // animator.SetTrigger("Attack");
             Attack();
             
         }
@@ -110,10 +113,11 @@ public class Ai_Controls : MonoBehaviour
             if (IsAttacking == true) return;// Doesnt move if its attacking  
 
             if(distanceBetweenObjects > 20) SetRigidBody(true);//Make enemy not kinamatic if range is far far
+
             agent.nextPosition = transform.position;
             agent.SetDestination(playerTransf.position);
            
-            // animator.SetTrigger("Walking");
+            animator.SetTrigger("Walking");
             //WalkSound.Play();
             //SoundSource.PlayOneShot(WalkSound);           
 
@@ -127,7 +131,7 @@ public class Ai_Controls : MonoBehaviour
         if (Ranged != true) //meele Attacks 
         {
             fireCD += Time.deltaTime;
-
+            animator.SetTrigger("Attack");
             if (fireCD < Attackinterval) return;// wont attack if attack in cd
             IsAttacking = true;// enemy is attacking
             //animator.SetTrigger("Attack");
@@ -140,8 +144,8 @@ public class Ai_Controls : MonoBehaviour
 
             fireCD += Time.deltaTime;
 
-            if (fireCD < Attackinterval) return;// wont attack if attack in cd
-
+            if (fireCD < Attackinterval)  return;// wont attack if attack in cd
+            
             //ranged Attacks
             //animator.SetTrigger("RangedAttack");
             IsAttacking = true;// enemy is attacking
@@ -173,9 +177,10 @@ public class Ai_Controls : MonoBehaviour
     public void Damage(int damage)
     {
         SetRigidBody(false);        //Make enemy not kinamatic 
+        animator.enabled = false; //disable
         CurrHeath -= damage;//Take dmg 
 
-        if (CurrHeath == 0)
+        if (CurrHeath < 1)
         {
             //KABOOOM the enemy DIES   
             //animator.SetTrigger("Death");
@@ -188,12 +193,14 @@ public class Ai_Controls : MonoBehaviour
             //animator.SetTrigger("Damage");    //if have
             //SoundSource.PlayOneShot(Damaged); // when it takes damage
         }
-       
+        animator.enabled = true; //disable
+                                  //StartCoroutine(GettingHit(0.5f));// attack duration 1.5 sec      
+
     }
 
     void Death()
     {
-        //animator.enabled = false; //disable
+        animator.enabled = false; //disable
         SetRigidBody(false);        //Make enemy kinamatic 
         agent.enabled = false;      //stops the ai system
                                     
@@ -219,16 +226,26 @@ public class Ai_Controls : MonoBehaviour
 
             if (Hit != null)
             {
-                Hit.Damage(dmg);        
+                Hit.Damage(dmg);
             }
         }
     }
+    
+         private IEnumerator GettingHit(float waitTime)
+    {
+
+        yield return new WaitForSeconds(waitTime);
+        animator.enabled = true; //disable
+        animator.SetTrigger("Attack");
+    }
+
     private IEnumerator MeeleTimer(float waitTime)
     {
       
         yield return new WaitForSeconds(waitTime);
         IsAttacking = false;
         fireCD = 0; // reset
+        animator.SetTrigger("Walking");
     }
 
     void Drops()
