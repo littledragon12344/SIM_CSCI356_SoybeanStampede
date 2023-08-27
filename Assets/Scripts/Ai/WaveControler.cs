@@ -24,6 +24,7 @@ public class WaveControler : MonoBehaviour
     void Start()
     {
 
+        if (spawners == null) return;//Dont overide Enemy
         if (EnemyPrefab == null) return;//Dont overide Enemy
 
         foreach (Spawner Spawn in spawners)
@@ -37,6 +38,7 @@ public class WaveControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (spawners == null) return;// ignore
         if (CurrentWave > PlusWaves) return; // game ends 
 
         foreach (Spawner Spawn in spawners) // for all spawner check if the spawner is done

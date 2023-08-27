@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ai_Spawn_test.unity
     guid: c20398d8502a36a46bcd66ccf6ec3168
+  - enabled: 1
+    path: Assets/Scenes/Wireframe - Assets Added.unity
+    guid: b7f497acc27738d4084efdc5116f0c66
   m_configObjects: {}
