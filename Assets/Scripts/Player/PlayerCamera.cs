@@ -98,8 +98,13 @@ public class PlayerCamera : MonoBehaviour
 
     private void ThirdPersonCamera()
     {
+        float yPos = transform.position.y;
+        if (Mathf.Abs(player.position.y - transform.position.y) > Mathf.Abs(offset.y))
+        {
+            yPos = player.position.y - offset.y;
+        }
         // update the camera's transform to follow the player
-        transform.position = new Vector3(player.position.x - offset.x, transform.position.y, player.position.z - offset.z);
+        transform.position = new Vector3(player.position.x - offset.x, yPos, player.position.z - offset.z);
 
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
