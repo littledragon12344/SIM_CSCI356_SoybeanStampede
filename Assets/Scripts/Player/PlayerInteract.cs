@@ -12,6 +12,8 @@ public class PlayerInteract : MonoBehaviour
     private float rotationSpeed = 6f;
     [SerializeField]
     private float maxPitch = 45f;
+    [SerializeField]
+    private LayerMask includedLayer;
 
     [Header("References")]
     [SerializeField]
@@ -29,6 +31,8 @@ public class PlayerInteract : MonoBehaviour
     // fps variables
     private float vertRotation = 0f;
     private float horRotation = 0f;
+
+    private bool shouldWait = false;
 
     // Start is called before the first frame update
     void Start()
@@ -124,7 +128,7 @@ public class PlayerInteract : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, 50f, includedLayer))
         {
             if (LayerMask.LayerToName(hit.collider.gameObject.layer) == "Ground")
             {
@@ -154,6 +158,8 @@ public class PlayerInteract : MonoBehaviour
 
     private void FPSControls()
     {
+        if (shouldWait) return;
+
         horRotation = transform.localEulerAngles.y;
 
         // get the mouse input and calculate the rotation
@@ -170,7 +176,7 @@ public class PlayerInteract : MonoBehaviour
         if (cam != null)
         {
             cam.transform.rotation = Quaternion.Euler(new Vector3(vertRotation, horRotation, 0));
-            cam.transform.position = transform.position;
+            cam.transform.position = new Vector3(transform.position.x, transform.position.y + 0.2f, transform.position.z);
         }
 
         // update gunholder's transform
@@ -260,5 +266,14 @@ public class PlayerInteract : MonoBehaviour
         {
             crosshair.SetActive(!isFPS);
         }
+
+        shouldWait = true;
+        StartCoroutine(Wait(1.2f));
+    }
+
+    IEnumerator Wait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        shouldWait = false;
     }
 }
