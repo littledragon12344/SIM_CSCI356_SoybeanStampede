@@ -13,6 +13,8 @@ public class PlayerStateController : MonoBehaviour
     private PlayerInteract playerControls;
     private PlayerMovement playerMovement;
 
+    private float modeToggleCD = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,35 @@ public class PlayerStateController : MonoBehaviour
         {
             playerControls.enabled = true;
             playerMovement.enabled = true;
+        }
+
+        modeToggleCD += Time.deltaTime;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "ModeChangeTrigger" && modeToggleCD >= 5f)
+        {
+            PlayerCamera playerCamera = Camera.main.GetComponent<PlayerCamera>();
+            if(playerCamera != null ) playerCamera.ToggleCameraMode();
+
+            modeToggleCD = 0f;
+        }
+
+        if(other.tag == "FPSTrigger" && modeToggleCD >= 5f)
+        {
+            PlayerCamera playerCamera = Camera.main.GetComponent<PlayerCamera>();
+            if(playerCamera != null ) playerCamera.SetCameraMode(true);
+
+            modeToggleCD = 0f;
+        }
+
+        if(other.tag == "ThirdPersonTrigger" && modeToggleCD >= 5f)
+        {
+            PlayerCamera playerCamera = Camera.main.GetComponent<PlayerCamera>();
+            if(playerCamera != null ) playerCamera.SetCameraMode(false);
+
+            modeToggleCD = 0f;
         }
     }
 

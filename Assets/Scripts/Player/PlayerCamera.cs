@@ -151,4 +151,22 @@ public class PlayerCamera : MonoBehaviour
             playerMovement.ToggleFPSControls(isFPS);
         }
     }
+
+    public void SetCameraMode(bool changeToFPS)
+    {
+        // toggle the camera mode
+        isFPS = changeToFPS;
+
+        PlayerInteract playerControls = player.gameObject.GetComponent<PlayerInteract>();
+        if (playerControls != null)
+        {
+            playerControls.ToggleFPSControls(isFPS);
+        }
+
+        PlayerMovement playerMovement = player.gameObject.GetComponent<PlayerMovement>();
+        if (playerMovement != null)
+        {
+            playerMovement.ToggleFPSControls(isFPS);
+        }
+    }
 }

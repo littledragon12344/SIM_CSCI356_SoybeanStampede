@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - GunModel
   - Gun
+  - ModeChangeTrigger
+  - FPSTrigger
+  - ThirdPersonTrigger
   layers:
   - Default
   - TransparentFX
