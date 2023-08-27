@@ -2,21 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerInteract))]
 public class PlayerStateController : MonoBehaviour
 {
-    private int MaxHealth = 50;      //player max hp
     public int CurrHeath;  //player current hp
+
+    private int MaxHealth = 50;      //player max hp
+
+    private PlayerInteract playerControls;
+    private PlayerMovement playerMovement;
 
     // Start is called before the first frame update
     void Start()
     {
         CurrHeath = MaxHealth;//set the current hp to MaxHp
+
+        playerControls = GetComponent<PlayerInteract>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        // if paused disable the player's controls, enable if otherwise
     }
 
     public void Damage(int damage)

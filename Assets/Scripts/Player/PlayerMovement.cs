@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -14,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController characterController;
     private bool isJumping;
+    private bool FPSmovement = false;
     private float moveSpeed;
 
     // Start is called before the first frame update
@@ -30,9 +32,18 @@ public class PlayerMovement : MonoBehaviour
         // player's horizontal and vertical movements
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+        
+        Vector3 moveDir = Vector3.zero;
+        if (FPSmovement)
+        {
+            moveDir = transform.forward * verticalInput + transform.right * horizontalInput;
 
-        //Vector3 moveDir = transform.forward * verticalInput + transform.right * horizontalInput;
-        Vector3 moveDir = new Vector3(horizontalInput, 0.0f, verticalInput);
+        }
+        else
+        {
+            moveDir = new Vector3(horizontalInput, 0.0f, verticalInput);
+
+        }
 
         // player's jump movement
         Vector3 jumpForce = Vector3.zero;
@@ -63,5 +74,10 @@ public class PlayerMovement : MonoBehaviour
 
         // pass the movement data to character controller
         characterController.Move((moveDir.normalized * moveSpeed + jumpForce) * Time.deltaTime);
+    }
+
+    public void ToggleFPSControls(bool isFPS)
+    {
+        FPSmovement = isFPS;
     }
 }

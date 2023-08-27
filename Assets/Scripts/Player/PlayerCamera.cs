@@ -16,8 +16,6 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 originPos;
     private Quaternion originRot;
 
-    // for testing only, delete line 18 when build is ready
-    [SerializeField]
     private bool isFPS = false;
 
     // Start is called before the first frame update
@@ -43,8 +41,13 @@ public class PlayerCamera : MonoBehaviour
         // script will stop working if the player tranform is null
         if (player == null) return;
 
-        float t = interpolationCurve.Evaluate(Time.deltaTime * 10f);
+        // debug 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ToggleCameraMode();
+        }
 
+        float t = interpolationCurve.Evaluate(Time.deltaTime * 10f);
         // check for camera mode
         if (!isFPS)
         {
@@ -81,6 +84,12 @@ public class PlayerCamera : MonoBehaviour
         if(playerControls != null)
         {
             playerControls.ToggleFPSControls(isFPS);
+        }
+
+        PlayerMovement playerMovement = player.gameObject.GetComponent<PlayerMovement>();
+        if(playerMovement != null)
+        {
+            playerMovement.ToggleFPSControls(isFPS);
         }
     }
 }

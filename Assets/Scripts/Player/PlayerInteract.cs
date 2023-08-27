@@ -10,6 +10,8 @@ public class PlayerInteract : MonoBehaviour
     [Header("Settings")]
     [SerializeField]
     private float rotationSpeed = 6f;
+    [SerializeField]
+    private float maxPitch = 45f;
 
     [Header("References")]
     [SerializeField]
@@ -19,10 +21,14 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private GameObject gunHolder;
 
+    // guns variables
     private List<IGun> guns = new List<IGun>();
     private int currGunIndex = 0;
-
     Dictionary<IGun, GameObject> gunObject = new Dictionary<IGun, GameObject>();
+
+    // fps variables
+    private float vertRotation = 0f;
+    private float horRotation = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -59,9 +65,9 @@ public class PlayerInteract : MonoBehaviour
                     // add the gun to the list
                     guns.Add(temp);
                 }
-                //child.GetComponent<Renderer>().enabled = false;
-                //child.GetComponent<Collider>().enabled = false;
-
+                // disable the collider
+                child.GetComponent<Collider>().enabled = false;
+                // disable the children
                 foreach (Transform part in child.GetComponentInChildren<Transform>())
                 {
                     part.gameObject.SetActive(false);
@@ -83,40 +89,12 @@ public class PlayerInteract : MonoBehaviour
         // check for null reference and check if the crosshair is active or not
         if (cam != null && crosshair != null && crosshair.activeInHierarchy)
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (LayerMask.LayerToName(hit.collider.gameObject.layer) == "Ground")
-                {
-                    // move the crosshair to the hit point
-                    crosshair.transform.position = new Vector3(hit.point.x, hit.point.y + 0.5f, hit.point.z);
-
-                    // get the crosshair direction relative to the player
-                    Vector3 targetDirection = hit.point - transform.position;
-                    // freeze the x and z rotations
-                    targetDirection.y = 0;
-                    // interpolate the rotation of the player
-                    Quaternion lookDirection = Quaternion.LookRotation(targetDirection);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, lookDirection, rotationSpeed * Time.deltaTime);
-
-                    if (gunHolder != null)
-                    {
-                        // get the crosshair direction relative to the player
-                        targetDirection = hit.point - gunHolder.transform.position;
-                        targetDirection.y += 0.75f;
-                        // interpolate the rotation of the gun
-                        lookDirection = Quaternion.LookRotation(targetDirection);
-                        gunHolder.transform.rotation = Quaternion.Lerp(gunHolder.transform.rotation, lookDirection, rotationSpeed * Time.deltaTime);
-                    }
-                }
-            }
+            ThirdPersonControls();
         }
 
         if (crosshair != null && !crosshair.activeInHierarchy)
         {
-            // fps controls
+            FPSControls();
         }
 
         // shooting code
@@ -139,6 +117,70 @@ public class PlayerInteract : MonoBehaviour
 
         // use middle mouse to change weapon
         MouseScroll();
+    }
+
+    private void ThirdPersonControls()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (LayerMask.LayerToName(hit.collider.gameObject.layer) == "Ground")
+            {
+                // move the crosshair to the hit point
+                crosshair.transform.position = new Vector3(hit.point.x, hit.point.y + 0.5f, hit.point.z);
+
+                // get the crosshair direction relative to the player
+                Vector3 targetDirection = hit.point - transform.position;
+                // freeze the x and z rotations
+                targetDirection.y = 0;
+                // interpolate the rotation of the player
+                Quaternion lookDirection = Quaternion.LookRotation(targetDirection);
+                transform.rotation = Quaternion.Lerp(transform.rotation, lookDirection, rotationSpeed * Time.deltaTime);
+
+                if (gunHolder != null)
+                {
+                    // get the crosshair direction relative to the player
+                    targetDirection = hit.point - gunHolder.transform.position;
+                    targetDirection.y += 0.75f;
+                    // interpolate the rotation of the gun
+                    lookDirection = Quaternion.LookRotation(targetDirection);
+                    gunHolder.transform.rotation = Quaternion.Lerp(gunHolder.transform.rotation, lookDirection, rotationSpeed * Time.deltaTime);
+                }
+            }
+        }
+    }
+
+    private void FPSControls()
+    {
+        horRotation = transform.localEulerAngles.y;
+
+        // get the mouse input and calculate the rotation
+        vertRotation -= Input.GetAxis("Mouse Y") * rotationSpeed;
+        horRotation += Input.GetAxis("Mouse X") * rotationSpeed;
+
+        // clamp the vertical rotation
+        vertRotation = Mathf.Clamp(vertRotation, -maxPitch, maxPitch);
+
+        // update player's transform
+        transform.rotation = Quaternion.Euler(new Vector3(0, horRotation, 0));
+
+        // update camera's transform
+        if (cam != null)
+        {
+            cam.transform.rotation = Quaternion.Euler(new Vector3(vertRotation, horRotation, 0));
+            cam.transform.position = transform.position;
+        }
+
+        // update gunholder's transform
+        if (gunHolder != null && cam != null)
+        {
+            Vector3 FPScrosshair = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0.0f);
+            Vector3 crosshairDir = cam.ScreenToWorldPoint(FPScrosshair) - gunHolder.transform.position;
+            Quaternion lookDir = Quaternion.LookRotation(crosshairDir + cam.transform.forward * 10f);
+            gunHolder.transform.rotation = lookDir;
+        }
     }
 
     private void MouseScroll()
@@ -171,9 +213,9 @@ public class PlayerInteract : MonoBehaviour
         {
             if (pair.Key == guns[currGunIndex])
             {
-                //pair.Value.GetComponent<Renderer>().enabled = true;
-                //pair.Value.GetComponent<Collider>().enabled = true;
-
+                // enable the collider
+                pair.Value.GetComponent<Collider>().enabled = true;
+                // enable the children
                 foreach (Transform part in pair.Value.GetComponentInChildren<Transform>())
                 {
                     part.gameObject.SetActive(true);
@@ -181,8 +223,9 @@ public class PlayerInteract : MonoBehaviour
             }
             else
             {
-                //pair.Value.GetComponent<Renderer>().enabled = false;
-                //pair.Value.GetComponent<Collider>().enabled = false;
+                // disable the collider
+                pair.Value.GetComponent<Collider>().enabled = false;
+                // disable the children
                 foreach (Transform part in pair.Value.GetComponentInChildren<Transform>())
                 {
                     part.gameObject.SetActive(false);
@@ -213,9 +256,9 @@ public class PlayerInteract : MonoBehaviour
 
     public void ToggleFPSControls(bool isFPS)
     {
-        if(crosshair!= null)
+        if (crosshair != null)
         {
-            crosshair.SetActive(isFPS);
+            crosshair.SetActive(!isFPS);
         }
     }
 }
