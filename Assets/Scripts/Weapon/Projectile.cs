@@ -31,33 +31,28 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Enemy" )
+        if (collision.transform.tag == "Enemy" && isShotBy == "Player")
         {
             // get the GameObject that was hit     
             GameObject hitObject = collision.transform.gameObject;
-            if (isShotBy == "Player")
-            {
-                // get Ai_Controls component
-                Ai_Controls target = hitObject.GetComponent<Ai_Controls>();
-                // prevent null reference
-                if (target != null)
-                {
-                    target.Damage(damage);
-                }
+           
+             // get Ai_Controls component
+             Ai_Controls target = hitObject.GetComponent<Ai_Controls>();
+             // prevent null reference
+             if (target != null)
+             {
+                  target.Damage(damage);
+             }
 
-                // get the rigidbody
-                Rigidbody rb = hitObject.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.AddForceAtPosition(transform.forward * 0.5f, collision.transform.position);
-                }
-                Destroy(gameObject);
-            }
-            else if (isShotBy == "Enemy")
-            {
-               // i want it to make it go through oher enemies but i bobo
-
-            }
+             // get the rigidbody
+             Rigidbody rb = hitObject.GetComponent<Rigidbody>();
+             if (rb != null)
+             {
+                rb.AddForceAtPosition(transform.forward * 0.5f, collision.transform.position);
+             }
+             Destroy(gameObject);
+           
+    
         }
         else if (collision.transform.tag == "Player" && isShotBy == "Enemy")
         {

@@ -39,10 +39,10 @@ public class DoorAnimation : MonoBehaviour
         }
         else if (isOpen && lookDirection.z < 0 && stopAngle == 0)
         {
-            stopAngle = 270;
+            stopAngle = -90;
             direction = Vector3.down;
         }
-
+        return;
         if (!isOpen && stopAngle != 0)
         {
             stopAngle = 0;

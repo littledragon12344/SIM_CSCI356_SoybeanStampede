@@ -29,8 +29,11 @@ public class WaveControler : MonoBehaviour
 
         foreach (Spawner Spawn in spawners)
         {
+            Spawn.EnemyPrefab = new GameObject[this.EnemyPrefab.Length];
+            Spawn.EnemyCountLimit = new int[this.EnemyPrefab.Length];
+            Spawn.SpawnBetweenTimer = new int[this.EnemyPrefab.Length];
             //Overrides ALl Spawner Linked to this to the WaveController Value
-            Array.Copy(this.EnemyPrefab, Spawn.EnemyPrefab,this.EnemyPrefab.Length);
+            Array.Copy(this.EnemyPrefab, Spawn.EnemyPrefab, this.EnemyPrefab.Length);
             Array.Copy(this.EnemyCountLimit, Spawn.EnemyCountLimit, this.EnemyCountLimit.Length);
             Array.Copy(this.SpawnBetweenTimer, Spawn.SpawnBetweenTimer, this.SpawnBetweenTimer.Length);       
         }

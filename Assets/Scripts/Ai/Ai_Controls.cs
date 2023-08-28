@@ -57,7 +57,7 @@ public class Ai_Controls : MonoBehaviour
 
 
         agent.speed = Speed;
-        FarSpeed = Speed + 7f;
+        FarSpeed = Speed + 10.0f;
         CurrHeath = MaxHealth;  //set the current hp to MaxHp
         SetRigidBody(true);     //set the enemy to not move
 
@@ -206,7 +206,7 @@ public class Ai_Controls : MonoBehaviour
             //SoundSource.PlayOneShot(Damaged); // when it takes damage
         }
         animator.enabled = true; //disable
-                                  //StartCoroutine(GettingHit(0.5f));// attack duration 1.5 sec      
+        StartCoroutine(GettingHit(0.5f));// attack duration 1.5 sec      
 
     }
 
