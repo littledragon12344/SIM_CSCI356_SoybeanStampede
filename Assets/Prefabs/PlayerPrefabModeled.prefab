@@ -126,6 +126,7 @@ MonoBehaviour:
   interval: 0.1
   projectileSpeed: 30
   projectilePrefab: {fileID: 4505513552797135843, guid: 592bbe22bfd9c7740a4b78bd0797b9d8, type: 3}
+  animator: {fileID: 2446521902569796684}
 --- !u!1 &1501539594310280923
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +371,7 @@ MonoBehaviour:
   interval: 1.5
   projectileSpeed: 40
   projectilePrefab: {fileID: 383198768524856856, guid: fbf3bbe97073a1041a65aa13c272cac1, type: 3}
+  animator: {fileID: 2446521902569796684}
 --- !u!1 &2973869216518231837
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +498,7 @@ MonoBehaviour:
   interval: 0.8
   projectileSpeed: 20
   projectilePrefab: {fileID: 268628098435157260, guid: bfdadc65f56b7334ebd6cb44e087a1b3, type: 3}
+  animator: {fileID: 2446521902569796684}
 --- !u!1 &5063481798270771441
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,6 +820,7 @@ MonoBehaviour:
   speed: 6
   gravity: -9.8
   jumpHeight: 2
+  animator: {fileID: 2446521902569796684}
 --- !u!114 &8499961027767190380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1278,6 +1282,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f976e66fd6757a458f2d1a518c9f259, type: 3}
+--- !u!95 &2446521902569796684 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6756781215394240178, guid: 0f976e66fd6757a458f2d1a518c9f259, type: 3}
+  m_PrefabInstance: {fileID: 8950660176969048830}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2953492133732079053 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6110201004164871987, guid: 0f976e66fd6757a458f2d1a518c9f259, type: 3}

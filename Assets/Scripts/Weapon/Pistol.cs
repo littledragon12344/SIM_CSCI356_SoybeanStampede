@@ -30,6 +30,8 @@ public class Pistol : MonoBehaviour, IGun
     [Header("References")]
     [SerializeField]
     private GameObject projectilePrefab;
+    [SerializeField]
+    private Animator animator;
 
     // private members
     private float fireCD = 0f;
@@ -43,6 +45,11 @@ public class Pistol : MonoBehaviour, IGun
         capacity = cap;
         ammo = capacity;
         fireInterval = interval;
+
+        if (animator == null)
+        {
+            Debug.LogError("[ " + GetType() + " ] : Missing Animator reference!");
+        }
     }
 
     // Update is called once per frame
@@ -50,6 +57,22 @@ public class Pistol : MonoBehaviour, IGun
     {
         fireCD += Time.deltaTime;
         fireCD = Mathf.Clamp(fireCD, 0.0f, fireInterval);
+
+        if (animator != null)
+        {
+            int layerIndex = animator.GetLayerIndex("Magnus Reload");
+            if (layerIndex != -1)
+            {
+                // check if the animation has finished playing
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(layerIndex);
+                if (!animator.IsInTransition(layerIndex) 
+                    && stateInfo.normalizedTime >= 1.0f 
+                    && !stateInfo.IsName("None"))
+                {
+                    animator.SetBool("ReloadMagnus", false);
+                }
+            }
+        }
     }
 
     // interface functions implementation
@@ -79,7 +102,7 @@ public class Pistol : MonoBehaviour, IGun
         if (projectile != null)
         {
             projectile.damage = damage;
-            projectile.isShotBy = transform.root.tag;
+            projectile.isShotBy = "Player";
         }
 
         // reset cooldown and decreases ammo
@@ -90,6 +113,11 @@ public class Pistol : MonoBehaviour, IGun
     public void Reload()
     {
         if (magazine <= 0) return;
+
+        if(animator != null)
+        {
+            animator.SetBool("ReloadMagnus", true);
+        }
 
         magazine--;
         ammo = capacity;

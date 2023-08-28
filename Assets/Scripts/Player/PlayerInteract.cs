@@ -268,7 +268,7 @@ public class PlayerInteract : MonoBehaviour
         }
 
         shouldWait = true;
-        StartCoroutine(Wait(1.2f));
+        StartCoroutine(Wait(1f));
     }
 
     IEnumerator Wait(float seconds)
