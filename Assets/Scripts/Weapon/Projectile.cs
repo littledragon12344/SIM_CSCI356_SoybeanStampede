@@ -28,7 +28,6 @@ public class Projectile : MonoBehaviour
         }
     }
    
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Enemy" && isShotBy == "Player")
