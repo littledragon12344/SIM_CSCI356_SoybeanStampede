@@ -66,32 +66,13 @@ public class PlayerCamera : MonoBehaviour
             ToggleCameraMode();
         }
 
-        float t = interpolationCurve.Evaluate(Time.deltaTime * 10f);
         // check for camera mode
         if (!isFPS)
         {
-            // camera transition
-            if (transform.position != originPos && transform.rotation != originRot)
-            {
-                // Lerp the camera to its original transform
-                Vector3 newPosition = Vector3.Lerp(transform.position, originPos, t);
-                Quaternion newRotation = Quaternion.Lerp(transform.rotation, originRot, t);
-                transform.position = newPosition;
-                transform.rotation = newRotation;
-            }
             ThirdPersonCamera();
         }
         else
         {
-            // camera transition
-            // offset the fps's camera position
-            Vector3 targetPosition = new Vector3(player.position.x, player.position.y + 0.2f, player.position.z);
-            // Lerp the camera to its FPS transform
-            Vector3 newPosition = Vector3.Lerp(transform.position, targetPosition, t);
-            Quaternion newRotation = Quaternion.Lerp(transform.rotation, player.rotation, t);
-            transform.position = newPosition;
-            transform.rotation = newRotation;
-
             FPSCamera();
         }
     }
@@ -105,6 +86,9 @@ public class PlayerCamera : MonoBehaviour
         }
         // update the camera's transform to follow the player
         transform.position = new Vector3(player.position.x - offset.x, yPos, player.position.z - offset.z);
+
+        originPos = transform.position;
+        originRot = transform.rotation;
 
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
@@ -144,6 +128,21 @@ public class PlayerCamera : MonoBehaviour
         // toggle the camera mode
         isFPS = !isFPS;
 
+        // check for camera mode
+        if (!isFPS)
+        {
+            StartCoroutine(InterpolateCamera(originPos, originRot));
+        }
+        else
+        {
+            originPos = transform.position;
+            originRot = transform.rotation;
+            // camera transition
+            // offset the fps's camera position
+            Vector3 targetPosition = new Vector3(player.position.x, player.position.y + 0.2f, player.position.z);
+            StartCoroutine(InterpolateCamera(targetPosition, player.rotation, player));
+        }
+
         PlayerInteract playerControls = player.gameObject.GetComponent<PlayerInteract>();
         if (playerControls != null)
         {
@@ -162,6 +161,19 @@ public class PlayerCamera : MonoBehaviour
         // toggle the camera mode
         isFPS = changeToFPS;
 
+        // check for camera mode
+        if (!isFPS)
+        {
+            StartCoroutine(InterpolateCamera(originPos, originRot));
+        }
+        else
+        {
+            // camera transition
+            // offset the fps's camera position
+            Vector3 targetPosition = new Vector3(player.position.x, player.position.y + 0.2f, player.position.z);
+            StartCoroutine(InterpolateCamera(targetPosition, player.rotation, player));
+        }
+
         PlayerInteract playerControls = player.gameObject.GetComponent<PlayerInteract>();
         if (playerControls != null)
         {
@@ -173,5 +185,25 @@ public class PlayerCamera : MonoBehaviour
         {
             playerMovement.ToggleFPSControls(isFPS);
         }
+    }
+
+    private IEnumerator InterpolateCamera(Vector3 targetPosition, Quaternion targetRotation, Transform parent = null)
+    {
+        float elapsedTime = 0f;
+        float duration = 1.2f;
+
+        while (elapsedTime < duration)
+        {
+            float t = interpolationCurve.Evaluate(elapsedTime / duration);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, t);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, t);
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        // set parent after finished
+        transform.parent = parent;
     }
 }
