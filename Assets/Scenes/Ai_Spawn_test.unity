@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: fbd603eccec7de247a19112e059f9b9f, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -351,7 +351,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  isFPS: 0
+  includedLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &753486588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1513,6 +1515,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 15
+  maxPitch: 45
+  includedLayer:
+    serializedVersion: 2
+    m_Bits: 0
   cam: {fileID: 416890494}
   crosshair: {fileID: 1019040935}
   gunHolder: {fileID: 753486588}

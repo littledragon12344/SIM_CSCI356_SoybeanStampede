@@ -21,6 +21,7 @@ public class Ai_Controls : MonoBehaviour
 
     //Enemies settings
     public float Speed = 2.5f;//enemy speed (change the mesh agent's speed)
+    private float FarSpeed;//enemy speed (change the mesh agent's speed)
     public int MaxHealth = 10;//enemy max hp
     public int CurrHeath;//enemy current hp
     public float fireCD = 0f;
@@ -56,6 +57,7 @@ public class Ai_Controls : MonoBehaviour
 
 
         agent.speed = Speed;
+        FarSpeed = Speed + 7f;
         CurrHeath = MaxHealth;  //set the current hp to MaxHp
         SetRigidBody(true);     //set the enemy to not move
 
@@ -112,7 +114,17 @@ public class Ai_Controls : MonoBehaviour
         {
             if (IsAttacking == true) return;// Doesnt move if its attacking  
 
-            if(distanceBetweenObjects > 20) SetRigidBody(true);//Make enemy not kinamatic if range is far far
+            if (distanceBetweenObjects > 20)
+            {
+                agent.speed = FarSpeed;// if Far make them Fast AF
+                SetRigidBody(true);// Make enemy not kinamatic if range is far far
+            }
+            else
+            {
+                agent.speed = Speed;//if near slower
+            }
+
+
 
             agent.nextPosition = transform.position;
             agent.SetDestination(playerTransf.position);
