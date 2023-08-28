@@ -56,7 +56,7 @@ public class Ai_Controls : MonoBehaviour
 
 
         agent.speed = Speed;
-        FarSpeed = Speed + 10.0f;
+        FarSpeed = Speed + 5.0f;
         CurrHeath = MaxHealth;  //set the current hp to MaxHp
         SetRigidBody(true);     //set the enemy to not move
 
