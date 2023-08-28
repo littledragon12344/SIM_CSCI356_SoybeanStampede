@@ -29,8 +29,7 @@ public class Ai_Controls : MonoBehaviour
     public float AttackRange = 5;//The Range enemy Attack distance
     public int dmg = 1;
     public bool IsAttacking;
-    private RaycastHit hit;
-
+ 
     //ranged settings
     public bool Ranged;// tick to set enemy to ranged type
     private float projectileSpeed = 20f;
