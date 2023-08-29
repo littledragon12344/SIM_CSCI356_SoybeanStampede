@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8814190038183608578}
   - component: {fileID: 964444700839790380}
   - component: {fileID: 3500885793982996603}
+  - component: {fileID: 1341919636213676580}
   m_Layer: 0
   m_Name: Magazine Pickup
   m_TagString: Untagged
@@ -147,3 +148,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 5
+--- !u!65 &1341919636213676580
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2306358868161678794}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.114, y: 0.45434973, z: 1.0067445}
+  m_Center: {x: 0, y: -0.10440363, z: 0.2669412}
