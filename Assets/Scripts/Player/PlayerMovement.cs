@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float jumpHeight = 2.0f;
 
+    [SerializeField]
+    private Animator animator;
+
     private CharacterController characterController;
     private bool isJumping;
     private bool FPSmovement = false;
@@ -24,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         isJumping = false;
         moveSpeed = speed;
+
+        if (animator == null)
+        {
+            Debug.LogError("[ " + GetType() + " ] : Missing Animator reference!");
+        }
     }
 
     // Update is called once per frame
@@ -32,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         // player's horizontal and vertical movements
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        
+
         Vector3 moveDir = Vector3.zero;
         if (FPSmovement)
         {
@@ -43,6 +51,12 @@ public class PlayerMovement : MonoBehaviour
         {
             moveDir = new Vector3(horizontalInput, 0.0f, verticalInput);
 
+        }
+
+        if (animator != null)
+        {
+            if (moveDir == Vector3.zero) animator.SetBool("Walking", false);
+            else animator.SetBool("Walking", true);
         }
 
         // player's jump movement
