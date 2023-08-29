@@ -8,7 +8,7 @@ public class PlayerStateController : MonoBehaviour
 {
     public int CurrHeath;  //player current hp
 
-    private int MaxHealth = 50;      //player max hp
+    public int MaxHealth = 50;      //player max hp
 
     private PlayerInteract playerControls;
     private PlayerMovement playerMovement;

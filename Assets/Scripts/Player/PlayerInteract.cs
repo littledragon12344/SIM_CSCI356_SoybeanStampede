@@ -260,6 +260,13 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
+    public IGun GetCurrentlyEquiped()
+    {
+        if (guns.Count <= 0) return null;
+
+        return guns[currGunIndex];
+    }
+
     public void ToggleFPSControls(bool isFPS)
     {
         if (crosshair != null)
