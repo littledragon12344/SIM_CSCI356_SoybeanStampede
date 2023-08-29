@@ -13,8 +13,11 @@ public class MainMenuController : MonoBehaviour
     }
     public void HowToMenu()
     {
-        Time.timeScale = 1;
-        //SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("HowTo");
+    }
+    public void GoToMainMenu()
+    { 
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
