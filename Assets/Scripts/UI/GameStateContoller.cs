@@ -28,6 +28,15 @@ public class GameStateContoller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(pauseMenu.activeInHierarchy || GameOverScreen.activeInHierarchy)
+        {
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.visible = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Pause = !Pause; //false become true

@@ -22,6 +22,8 @@ public class PlayerInteract : MonoBehaviour
     private GameObject crosshair;
     [SerializeField]
     private GameObject gunHolder;
+    [SerializeField]
+    private GameObject fpsCrosshair;
 
     // guns variables
     private List<IGun> guns = new List<IGun>();
@@ -52,6 +54,10 @@ public class PlayerInteract : MonoBehaviour
         {
             Debug.LogError("[" + GetType() + "] : " + "Missing gunHolder's reference");
         }
+        if (fpsCrosshair == null)
+        {
+            Debug.LogError("[" + GetType() + "] : " + "Missing fps crosshair's reference");
+        }
 
         if (gunHolder != null)
         {
@@ -79,6 +85,8 @@ public class PlayerInteract : MonoBehaviour
             }
             EquipGun(0);
         }
+
+        if (fpsCrosshair != null) fpsCrosshair.SetActive(false);
     }
 
     private void OnDrawGizmos()
@@ -125,6 +133,8 @@ public class PlayerInteract : MonoBehaviour
 
     private void ThirdPersonControls()
     {
+        if (fpsCrosshair != null) fpsCrosshair.SetActive(false);
+
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -159,6 +169,8 @@ public class PlayerInteract : MonoBehaviour
     private void FPSControls()
     {
         if (shouldWait) return;
+
+        if (fpsCrosshair != null) fpsCrosshair.SetActive(true);
 
         horRotation = transform.localEulerAngles.y;
 
