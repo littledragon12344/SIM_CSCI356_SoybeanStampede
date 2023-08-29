@@ -51,7 +51,7 @@ public class PlayerGUIController : MonoBehaviour
 
         if (playerState != null)
         {
-            healthBar.value = playerState.CurrHeath / playerState.MaxHealth;
+            healthBar.value = (float)playerState.CurrHeath / (float)playerState.MaxHealth;
         }
     }
 }

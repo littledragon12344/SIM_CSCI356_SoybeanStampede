@@ -61,10 +61,10 @@ public class PlayerCamera : MonoBehaviour
         if (player == null) return;
 
         // debug 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            ToggleCameraMode();
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    ToggleCameraMode();
+        //}
 
         // check for camera mode
         if (!isFPS)
