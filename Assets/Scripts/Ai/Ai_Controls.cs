@@ -131,10 +131,10 @@ public class Ai_Controls : MonoBehaviour
 
 
             animator.SetTrigger("Walking");
-            SoundSource.Stop();
-            SoundSource.clip = WalkSound;
-            SoundSource.loop = true;
-            SoundSource.Play();     
+         
+            //SoundSource.clip = WalkSound;
+            //SoundSource.loop = true;
+            if(SoundSource.isPlaying!= true) SoundSource.Play();  
 
         }
     }
@@ -208,6 +208,7 @@ public class Ai_Controls : MonoBehaviour
         if (CurrHeath < 1)
         {
             //KABOOOM the enemy DIES   
+
             SoundSource.PlayOneShot(DeathSound);
             Death();
             //Drops();  //if have
