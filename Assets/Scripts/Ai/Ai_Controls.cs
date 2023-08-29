@@ -45,6 +45,7 @@ public class Ai_Controls : MonoBehaviour
 
     public EnemyHealthbar enhealthbar;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -127,12 +128,13 @@ public class Ai_Controls : MonoBehaviour
 
             agent.nextPosition = transform.position;
             agent.SetDestination(playerTransf.position);
-           
+
+
             animator.SetTrigger("Walking");
+            SoundSource.Stop();
             SoundSource.clip = WalkSound;
             SoundSource.loop = true;
-            SoundSource.Play();
-            //SoundSource.PlayOneShot(WalkSound);           
+            SoundSource.Play();     
 
         }
     }
@@ -148,7 +150,7 @@ public class Ai_Controls : MonoBehaviour
             fireCD += Time.deltaTime;
             animator.SetTrigger("Attack");
             if (fireCD < Attackinterval) return;// wont attack if attack in cd
-
+            SoundSource.Stop();
             SoundSource.clip = AttackSound;
             SoundSource.loop = false;
             SoundSource.Play();
@@ -163,7 +165,7 @@ public class Ai_Controls : MonoBehaviour
             fireCD += Time.deltaTime;
 
             if (fireCD < Attackinterval)  return;// wont attack if attack in cd
-
+            SoundSource.Stop();
             SoundSource.clip = AttackSound;
             SoundSource.loop = false;
             SoundSource.Play();
