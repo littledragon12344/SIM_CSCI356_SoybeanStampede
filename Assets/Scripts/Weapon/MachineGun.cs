@@ -32,6 +32,9 @@ public class MachineGun : MonoBehaviour, IGun
     private GameObject projectilePrefab;
     [SerializeField]
     private Animator animator;
+    private AudioSource SoundSource;    //only used as source
+    public AudioClip ShootSound;
+    public AudioClip ReloadSound;
 
     // private members
     private float fireCD = 0f;
@@ -39,6 +42,7 @@ public class MachineGun : MonoBehaviour, IGun
     // Start is called before the first frame update
     void Start()
     {
+        SoundSource = GetComponent<AudioSource>();
         name = gun_name;
         damage = dmg;
         magazine = mag;
@@ -80,7 +84,7 @@ public class MachineGun : MonoBehaviour, IGun
     {
         if (ammo <= 0) return;
         if (fireCD < fireInterval) return;
-
+        SoundSource.PlayOneShot(ShootSound);
         // spawn projectile
         GameObject bullet = Instantiate(projectilePrefab);
         bullet.transform.position = transform.position + transform.forward;
@@ -114,7 +118,7 @@ public class MachineGun : MonoBehaviour, IGun
     public void Reload()
     {
         if (magazine <= 0) return;
-
+        SoundSource.PlayOneShot(ReloadSound);
         animator.SetBool("ReloadStryfe", true);
 
         magazine--;

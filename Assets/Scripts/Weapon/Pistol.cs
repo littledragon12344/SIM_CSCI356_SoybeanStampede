@@ -32,6 +32,9 @@ public class Pistol : MonoBehaviour, IGun
     private GameObject projectilePrefab;
     [SerializeField]
     private Animator animator;
+    private AudioSource SoundSource;    //only used as source
+    public AudioClip ShootSound;       
+    public AudioClip ReloadSound;      
 
     // private members
     private float fireCD = 0f;
@@ -39,12 +42,14 @@ public class Pistol : MonoBehaviour, IGun
     // Start is called before the first frame update
     void Start()
     {
+        SoundSource = GetComponent<AudioSource>();
         name = gun_name;
         damage = dmg;
         magazine = mag;
         capacity = cap;
         ammo = capacity;
         fireInterval = interval;
+        
 
         if (animator == null)
         {
@@ -57,6 +62,7 @@ public class Pistol : MonoBehaviour, IGun
     {
         fireCD += Time.deltaTime;
         fireCD = Mathf.Clamp(fireCD, 0.0f, fireInterval);
+ 
 
         if (animator != null)
         {
@@ -81,6 +87,7 @@ public class Pistol : MonoBehaviour, IGun
         if (ammo <= 0) return;
         if (fireCD < fireInterval) return;
 
+        SoundSource.PlayOneShot(ShootSound);
         // spawn projectile
         GameObject bullet = Instantiate(projectilePrefab);
         bullet.transform.position = transform.position + transform.forward;
@@ -116,6 +123,7 @@ public class Pistol : MonoBehaviour, IGun
 
         if(animator != null)
         {
+            SoundSource.PlayOneShot(ReloadSound);
             animator.SetBool("ReloadMagnus", true);
         }
 
