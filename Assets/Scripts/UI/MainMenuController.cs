@@ -9,7 +9,7 @@ public class MainMenuController : MonoBehaviour
     public void GoToGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Ai_Spawn_test");//Currently it goes to ai spawn test
+        SceneManager.LoadScene("FinalScene");//Currently it goes to ai spawn test
     }
     public void HowToMenu()
     {
