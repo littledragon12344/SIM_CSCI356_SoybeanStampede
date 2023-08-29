@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using TMPro;
 
 public class PlayerGUIController : MonoBehaviour
@@ -12,6 +12,7 @@ public class PlayerGUIController : MonoBehaviour
     [SerializeField]
     private PlayerStateController playerState;
 
+    [Header("GUI references")]
     [SerializeField]
     private Slider healthBar;
     [SerializeField]

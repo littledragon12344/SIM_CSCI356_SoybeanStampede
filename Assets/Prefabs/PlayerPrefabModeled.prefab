@@ -1220,6 +1220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInteract: {fileID: 8499961027767190380}
   playerState: {fileID: 261795218428989540}
+  healthBar: {fileID: 1874815435419069117}
   weaponName: {fileID: 293369453994143383}
   ammoCount: {fileID: 1792889184887475383}
   capacity: {fileID: 1270892968667786128}
