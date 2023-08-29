@@ -29,18 +29,20 @@ public class RocketProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Player" && isShotBy == "Enemy")
+        if (collision.transform.tag == "Enemy" && isShotBy == "Player")
         {
-            // get the GameObject that was hit
-            GameObject hitObject = collision.transform.gameObject;
+            // get the GameObjects that was hit
+            Collider[] hitObjects = Physics.OverlapSphere(collision.transform.position, 5f);
 
-            // get player state controller object
-            PlayerStateController target = hitObject.GetComponent<PlayerStateController>();
-            // prevent null reference
-            if (target != null)
+            foreach (Collider collider in hitObjects)
             {
-                //deal the damage
-                target.Damage(damage);
+                // get Ai_Controls component
+                Ai_Controls target = collider.GetComponent<Ai_Controls>();
+                // prevent null reference
+                if (target != null)
+                {
+                    target.Damage(damage);
+                }
             }
 
             Destroy(gameObject);
