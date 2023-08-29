@@ -1,13 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.UI.Image;
 
 
 [RequireComponent(typeof(NavMeshAgent))] // enforces dependency of NavMeshAgent
