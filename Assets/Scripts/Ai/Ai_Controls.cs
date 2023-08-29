@@ -43,6 +43,7 @@ public class Ai_Controls : MonoBehaviour
     public AudioClip DeathSound;        //when it dies sound
     public AudioClip WalkSound;         //walk sound
 
+    [SerializeField] private EnemyHealthbar enhealthbar;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +60,8 @@ public class Ai_Controls : MonoBehaviour
         FarSpeed = Speed + 5.0f;
         CurrHeath = MaxHealth;  //set the current hp to MaxHp
         SetRigidBody(true);     //set the enemy to not move
+
+        enhealthbar.UpdateHealthbar(MaxHealth, CurrHeath);
 
         if (Ranged == true)
         {
