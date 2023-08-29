@@ -1,8 +1,14 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/FinalScene_Test/NavMesh-Factory Floor 1.asset.meta
+guid: 10481e9adc066614a8b94c72c77f958f
+NativeFormatImporter:
+========
 guid: d577cf8c80e0e1042b5ccfb080905b23
 folderAsset: yes
 DefaultImporter:
+>>>>>>>> 628a14dc3f27d0725e05dfd1272199bab529a2de:Assets/FPS Icons Pack.meta
   externalObjects: {}
+  mainObjectFileID: 23800000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
