@@ -99,14 +99,13 @@ public class Ai_Controls : MonoBehaviour
         {
 
             //FOR Ranged Attacker
-            //SoundSource.PlayOneShot(AttackSound);
-            //animator.SetTrigger("RangedAttack");
+           
             Attack();
         }
-        else if (distanceBetweenObjects <= AttackRange && Ranged != true)
+        else if (distanceBetweenObjects <= AttackRange && Ranged != true )
         {
             //for Meele enemies  
-            //SoundSource.PlayOneShot(AttackSound);          
+
             Attack();
             
         }
@@ -130,7 +129,9 @@ public class Ai_Controls : MonoBehaviour
             agent.SetDestination(playerTransf.position);
            
             animator.SetTrigger("Walking");
-            //WalkSound.Play();
+            SoundSource.clip = WalkSound;
+            SoundSource.loop = true;
+            SoundSource.Play();
             //SoundSource.PlayOneShot(WalkSound);           
 
         }
@@ -142,11 +143,16 @@ public class Ai_Controls : MonoBehaviour
         //Attack the player 
         if (Ranged != true) //meele Attacks 
         {
+           
+
             fireCD += Time.deltaTime;
             animator.SetTrigger("Attack");
             if (fireCD < Attackinterval) return;// wont attack if attack in cd
+
+            SoundSource.clip = AttackSound;
+            SoundSource.loop = false;
+            SoundSource.Play();
             IsAttacking = true;// enemy is attacking
-            //animator.SetTrigger("Attack");
 
             StartCoroutine(MeeleTimer(2.5f));// attack duration 1.5 sec      
         }
@@ -157,9 +163,13 @@ public class Ai_Controls : MonoBehaviour
             fireCD += Time.deltaTime;
 
             if (fireCD < Attackinterval)  return;// wont attack if attack in cd
-            
+
+            SoundSource.clip = AttackSound;
+            SoundSource.loop = false;
+            SoundSource.Play();
+
+
             //ranged Attacks
-            //animator.SetTrigger("RangedAttack");
             IsAttacking = true;// enemy is attacking
 
             Vector3 direction = playerTransf.position - this.transform.position;
@@ -196,15 +206,13 @@ public class Ai_Controls : MonoBehaviour
         if (CurrHeath < 1)
         {
             //KABOOOM the enemy DIES   
-            //animator.SetTrigger("Death");
-            //SoundSource.PlayOneShot(DeathSound);
+            SoundSource.PlayOneShot(DeathSound);
             Death();
             //Drops();  //if have
         }
         else
         {
-            //animator.SetTrigger("Damage");    //if have
-            //SoundSource.PlayOneShot(Damaged); // when it takes damage
+            SoundSource.PlayOneShot(DamagedSound); // when it takes damage
         }
         animator.enabled = true; //disable
         StartCoroutine(GettingHit(0.5f));// attack duration 1.5 sec      
