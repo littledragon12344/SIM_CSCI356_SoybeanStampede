@@ -104,10 +104,10 @@ MonoBehaviour:
   Ranged: 1
   projectilePrefab: {fileID: 6505825402928849045, guid: afa5ed11c2e467347b2401b153469648, type: 3}
   animator: {fileID: 0}
-  AttackSound: {fileID: 0}
-  DamagedSound: {fileID: 0}
-  DeathSound: {fileID: 0}
-  WalkSound: {fileID: 0}
+  AttackSound: {fileID: 8300000, guid: 25fbb60fdedcb69498d8c7c8015a0082, type: 3}
+  DamagedSound: {fileID: 8300000, guid: 6aa21f0fd95bc5a4c96b0151e1fa30f7, type: 3}
+  DeathSound: {fileID: 8300000, guid: c8477f29b84b31146921d943eed61836, type: 3}
+  WalkSound: {fileID: 8300000, guid: 984e97649c33ca14e80377e3977fc27e, type: 3}
 --- !u!65 &9030710400661411476
 BoxCollider:
   m_ObjectHideFlags: 0
