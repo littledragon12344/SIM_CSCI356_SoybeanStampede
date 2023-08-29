@@ -365,7 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceBetweenObjects: 0
   Speed: 2
-  MaxHealth: 10
+  MaxHealth: 15
   CurrHeath: 0
   fireCD: 0
   Attackinterval: 1.5
