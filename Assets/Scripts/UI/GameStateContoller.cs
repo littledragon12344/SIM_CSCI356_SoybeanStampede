@@ -28,7 +28,7 @@ public class GameStateContoller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(pauseMenu.activeInHierarchy || GameOverScreen.activeInHierarchy)
+        if (pauseMenu.activeInHierarchy || GameOverScreen.activeInHierarchy)
         {
             Cursor.visible = true;
         }
@@ -79,6 +79,17 @@ public class GameStateContoller : MonoBehaviour
         Time.timeScale = 0;//pause the game
         Pause = true;
 
-        FinalScore.text = "Total Score :" + Kills.ToString();
+        FinalScore.text = "You died,Final Score :" + Kills.ToString();
+    }
+
+
+    public void Survived()
+    {
+        pauseMenu.SetActive(false);
+        GameOverScreen.SetActive(true);
+        Time.timeScale = 0;//pause the game
+        Pause = true;
+
+        FinalScore.text = "Game Cleared,Final Score :" + Kills.ToString();
     }
 }
