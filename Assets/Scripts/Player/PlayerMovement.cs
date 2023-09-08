@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -33,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogError("[ " + GetType() + " ] : Missing Animator reference!");
         }
     }
+
+ 
 
     // Update is called once per frame
     void Update()
@@ -72,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         }
         // set the jumpforce
         if (!isJumping) jumpForce.y += gravity;
-        else jumpForce.y += -gravity * 1.5f;
+        else jumpForce.y += gravity * 1.5f;
 
         // player's run movement
         // increases speed when player pressed left shift
@@ -85,9 +88,13 @@ public class PlayerMovement : MonoBehaviour
         {
             moveSpeed = speed;
         }
-
+        
+       
         // pass the movement data to character controller
         characterController.Move((moveDir.normalized * moveSpeed + jumpForce) * Time.deltaTime);
+       
+      
+     
     }
 
     public void ToggleFPSControls(bool isFPS)

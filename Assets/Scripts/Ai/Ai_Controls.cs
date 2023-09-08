@@ -122,11 +122,16 @@ public class Ai_Controls : MonoBehaviour
             agent.nextPosition = transform.position;
             agent.SetDestination(playerTransf.position);
 
-
+            if(distanceBetweenObjects<3.5)
+            {
+                agent.avoidancePriority -= 10;
+            }
+            else
+            {
+                agent.avoidancePriority += 10;
+            }
             animator.SetTrigger("Walking");
-         
-            //SoundSource.clip = WalkSound;
-            //SoundSource.loop = true;
+                 
             if(SoundSource.isPlaying!= true) SoundSource.Play();  
 
         }
