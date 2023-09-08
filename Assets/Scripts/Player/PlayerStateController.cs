@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
@@ -50,6 +51,7 @@ public class PlayerStateController : MonoBehaviour
             if(playerCamera != null ) playerCamera.ToggleCameraMode();
 
             modeToggleCD = 0f;
+            other.enabled = false;
         }
 
         if(other.tag == "FPSTrigger" && modeToggleCD >= 5f)
@@ -58,6 +60,7 @@ public class PlayerStateController : MonoBehaviour
             if(playerCamera != null ) playerCamera.SetCameraMode(true);
 
             modeToggleCD = 0f;
+            other.enabled = false;
         }
 
         if(other.tag == "ThirdPersonTrigger" && modeToggleCD >= 5f)
@@ -66,6 +69,7 @@ public class PlayerStateController : MonoBehaviour
             if(playerCamera != null ) playerCamera.SetCameraMode(false);
 
             modeToggleCD = 0f;
+            other.enabled = false;
         }
     }
 

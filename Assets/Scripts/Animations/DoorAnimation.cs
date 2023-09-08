@@ -7,8 +7,8 @@ public class DoorAnimation : MonoBehaviour
     [SerializeField]
     private float speed = 1f;
 
+    private float originY;
     private float targetY;
-    private Vector3 lookDirection;
 
     private bool isOpening = false;
     private bool isClosing = false;
@@ -17,6 +17,7 @@ public class DoorAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        originY = transform.rotation.y;
         targetY = 0f;
     }
 
@@ -25,16 +26,14 @@ public class DoorAnimation : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && inRange)
         {
-            if (transform.localRotation.y == 0 && !isOpening)
-                isOpening = true;
+            if (transform.rotation.y == originY && !isOpening) isOpening = true;
 
-            if (transform.localRotation.y != 0 && !isClosing)
-                isClosing = true;
+            if (transform.rotation.y != originY && !isClosing) isClosing = true;
         }
 
         if (isOpening)
         {
-            Quaternion targetRotation = Quaternion.Euler(0f, targetY, 0f);
+            Quaternion targetRotation = Quaternion.Euler(0f, originY + targetY, 0f);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, speed * Time.deltaTime * 10f);
 
             if (transform.rotation == targetRotation) isOpening = false;
@@ -42,7 +41,7 @@ public class DoorAnimation : MonoBehaviour
 
         if (isClosing)
         {
-            Quaternion targetRotation = Quaternion.Euler(0f, 0f, 0f);
+            Quaternion targetRotation = Quaternion.Euler(0f, originY, 0f);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, speed * Time.deltaTime * 10f);
 
             if (transform.rotation == targetRotation) isClosing = false;
@@ -55,11 +54,11 @@ public class DoorAnimation : MonoBehaviour
         {
             inRange = true;
 
-            lookDirection = transform.position - other.transform.position;
-            lookDirection.Normalize();
+            Vector3 lookDirection = transform.position - other.transform.position;
+            float dotProduct = Vector3.Dot(transform.forward.normalized, lookDirection);
 
-            if (lookDirection.z < 0f && !isOpening) targetY = -90f;
-            else if (lookDirection.z > 0f && !isOpening) targetY = 90f;
+            if (dotProduct > 0f && !isOpening) targetY = -90f;
+            else if (dotProduct < 0f && !isOpening) targetY = 90f;
         }
     }
 

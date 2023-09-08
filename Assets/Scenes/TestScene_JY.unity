@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -346,7 +346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &337099920
 Transform:
   m_ObjectHideFlags: 0
@@ -1911,10 +1911,6 @@ PrefabInstance:
     - target: {fileID: 3482929367881795880, guid: 069d669040854cd4691a452145f03b20, type: 3}
       propertyPath: m_Name
       value: Ammo Pickup
-      objectReference: {fileID: 0}
-    - target: {fileID: 5726520041207210020, guid: 069d669040854cd4691a452145f03b20, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6866595403648320020, guid: 069d669040854cd4691a452145f03b20, type: 3}
       propertyPath: m_RootOrder
