@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         }
         // set the jumpforce
         if (!isJumping) jumpForce.y += gravity;
-        else jumpForce.y += gravity * 1.5f;
+        else jumpForce.y += -gravity * 1.5f;
 
         // player's run movement
         // increases speed when player pressed left shift
