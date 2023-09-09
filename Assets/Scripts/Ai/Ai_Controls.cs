@@ -55,6 +55,7 @@ public class Ai_Controls : MonoBehaviour
         CurrHeath = MaxHealth;  //set the current hp to MaxHp
         SetRigidBody(true);     //set the enemy to not move
 
+        agent.avoidancePriority = Random.Range(agent.avoidancePriority - 10, agent.avoidancePriority + 10);
         if (Ranged == true)
         {
             agent.stoppingDistance = AttackRange;    //set agents speed through this script
@@ -122,14 +123,6 @@ public class Ai_Controls : MonoBehaviour
             agent.nextPosition = transform.position;
             agent.SetDestination(playerTransf.position);
 
-            if(distanceBetweenObjects<3.5)
-            {
-                agent.avoidancePriority -= 10;
-            }
-            else
-            {
-                agent.avoidancePriority += 10;
-            }
             animator.SetTrigger("Walking");
                  
             if(SoundSource.isPlaying!= true) SoundSource.Play();  

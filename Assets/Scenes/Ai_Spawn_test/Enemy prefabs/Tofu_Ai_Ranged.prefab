@@ -285,7 +285,6 @@ GameObject:
   - component: {fileID: 9030710400661411476}
   - component: {fileID: 3571534080028185890}
   - component: {fileID: 6908497522156465163}
-  - component: {fileID: 2915588257587840810}
   m_Layer: 0
   m_Name: Tofu_Ai_Ranged
   m_TagString: Enemy
@@ -400,8 +399,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.4160738, z: 1}
-  m_Center: {x: 0, y: 1.0706062, z: 0}
+  m_Size: {x: 1, y: 4.2421784, z: 1}
+  m_Center: {x: 0, y: 1.9836564, z: 0}
 --- !u!54 &3571534080028185890
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -428,7 +427,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!82 &6908497522156465163
 AudioSource:
   m_ObjectHideFlags: 0
@@ -525,29 +524,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!136 &2915588257587840810
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7485302503903213793}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.58170325
-  m_Height: 3.2230327
-  m_Direction: 1
-  m_Center: {x: -0.0031763713, y: 1.1115158, z: 0}
 --- !u!1 &8852421693801701800
 GameObject:
   m_ObjectHideFlags: 0

@@ -374,8 +374,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.90000045, y: 0.9000008, z: 2.2500007}
-  m_Center: {x: 0, y: -0.00000026822093, z: 1.1250002}
+  m_Size: {x: 0.90000045, y: 0.9000008, z: 3.8394217}
+  m_Center: {x: 0, y: -0.0000002682209, z: 1.9197109}
 --- !u!1 &9214375642885996903
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,7 +391,6 @@ GameObject:
   - component: {fileID: 5372691412261747471}
   - component: {fileID: 6556212675639782849}
   - component: {fileID: 3315043370112369995}
-  - component: {fileID: 7898487946118542571}
   m_Layer: 0
   m_Name: Tofu_Ai_Meele
   m_TagString: Enemy
@@ -450,11 +449,11 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1.5
+  m_StoppingDistance: 1.7
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 4
   m_BaseOffset: 0
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
@@ -506,8 +505,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.4160738, z: 1}
-  m_Center: {x: 0, y: 1.0706062, z: 0}
+  m_Size: {x: 1, y: 4.0720077, z: 1}
+  m_Center: {x: 0, y: 1.8985736, z: 0}
 --- !u!54 &6556212675639782849
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -534,7 +533,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!82 &3315043370112369995
 AudioSource:
   m_ObjectHideFlags: 0
@@ -631,26 +630,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!136 &7898487946118542571
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9214375642885996903}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.59369075
-  m_Height: 3.8724728
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.9362364, z: -0.025086164}
