@@ -1,6 +1,8 @@
 # SIM_CSCI356_SoybeanStampede
  SIM 2023 CSCI356 group assignment
 
+Game playthrough https://youtu.be/vcqxtsBUaS8?si=bFPfo9cAqEY00N1B
+
 Group TTD
 https://docs.google.com/document/d/14skd97AkuNplvftxq308zAt0xpOY63gR0Mt5Vu1nM6s/edit
 
